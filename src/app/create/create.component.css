@@ -1,0 +1,28 @@
+*{
+    font-family: 'Mitr', sans-serif;
+}
+
+.test::-webkit-scrollbar {
+    width: 5px; 
+    border-radius: 25px;
+ }
+
+ .test::-webkit-scrollbar-track {
+  background-color: rgb(203, 203, 203);
+  border-radius: 25px;
+}
+
+.test::-webkit-scrollbar-thumb {
+  background: #939393;
+  border-radius: 25px;
+}
+
+.noselect {
+    cursor: default;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}

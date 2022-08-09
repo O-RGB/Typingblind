@@ -1,0 +1,222 @@
+<p-dialog
+  header="ลบด่านนี้ทั้งหมด"
+  [dismissableMask]="true"
+  [modal]="true"
+  [(visible)]="deleteData"
+>
+  <button
+  pButton
+  pRipple
+  type="button"
+  (click)="deleteAllGame()"
+  label="ตกลง"
+  style="width: 100%"
+></button>
+</p-dialog>
+
+<p-dialog
+  header="แก้ไขตัวอักษร"
+  [dismissableMask]="true"
+  [modal]="true"
+  [(visible)]="editData"
+>
+  <div style="text-align: center">
+    <input
+      value="{{ editTextData }}"
+      maxlength="1"
+      (input)="changeText($event)"
+      style="
+        width: 120px;
+        height: 150px;
+        background-color: rgb(116, 116, 116);
+        border-radius: 15px;
+        font-size: 80px;
+        text-align: center;
+        color: white;
+        border: 0px;
+        z-index: 99;
+      "
+    />
+  </div>
+  <br />
+  <button
+    pButton
+    pRipple
+    type="button"
+    (click)="saveText()"
+    label="ตกลง"
+    style="width: 100%"
+  ></button>
+</p-dialog>
+
+<html class="noselect">
+  <body style="background-color: rgb(62, 66, 68); height: 100vh">
+    <button
+      pButton
+      pRipple
+      type="button"
+      label="ย้อนกลับ"
+      style="color: white"
+      class="p-button-secondary p-button-text"
+      (click)="gotoHome()"
+    ></button>
+
+    <div class="grid" style="padding: 5px; margin: 5px; position: relative">
+      <div
+        class="col-fixed test"
+        style="
+          width: 300px;
+          height: 80vh;
+          background-color: rgb(182, 182, 182);
+          border-radius: 10px;
+          overflow: auto;
+        "
+      >
+        <div *ngFor="let data of testBut; let i = index">
+          <button
+            pButton
+            class="p-button-secondary"
+            type="button"
+            label="ด่านที่ {{ i + 1 }}"
+            style="font-size: 20px; width: 100%; margin-bottom: 5px"
+          ></button>
+        </div>
+        <div style="position: sticky; bottom: 0">
+          <button
+            pButton
+            pRipple
+            label="เพิ่ม +"
+            type="button"
+            style="font-size: 20px; width: 100%; margin-bottom: 5px"
+            class="p-button-info"
+            (click)="add()"
+          ></button>
+        </div>
+      </div>
+      <div
+        class="col test"
+        style="
+          background-color: rgb(182, 182, 182);
+          border-radius: 10px;
+          margin-left: 10px;
+          overflow-x: auto;
+          height: 80vh;
+        "
+      >
+        <div
+          style="
+            position: sticky;
+            top: -8px;
+            background-color: rgb(182, 182, 182);
+            border-radius: 10px;
+          "
+        >
+          <button
+            pButton
+            pRipple
+            type="button"
+            
+            label="บันทึกรายการ"
+            style="color: rgb(57, 57, 57); height: 20px"
+            class="p-button-secondary p-button-text"
+          ></button>
+          <button
+            pButton
+            pRipple
+            type="button"
+            label="ลบด่านนี้"
+            style="color: rgb(57, 57, 57); height: 20px"
+            class="p-button-secondary p-button-text"
+            (click)="showDialogDeleteData()"
+          ></button>
+          <hr />
+        </div>
+        <div style="padding: 10px">
+          <div class="grid">
+            <ng-container *ngFor="let text of testtext; let i = index">
+              <div class="col-fixed" style="width: 130px">
+                <!-- <box [index]="i" text="{{ text }}" (onChangeText)="changeText($event)"></box> -->
+                <div style="margin: 0px">
+                  <div
+                    style="
+                      width: 40px;
+                      height: 22px;
+                      background-color: rgb(65, 65, 65);
+                      border-radius: 50px;
+                      text-align: center;
+                      margin-bottom: -23px;
+                      margin-left: 80px;
+                      font-size: 15px;
+                      color: white;
+                      cursor: pointer;
+                    "
+                     type="button"
+                    (click)="showDialogEditData(i)"
+                  >
+                    แก้ไข
+                  </div>
+                  <div
+                    style="
+                      width: 59px;
+                      height: 28px;
+                      background-color: rgb(215, 86, 86);
+                      border-radius: 50px;
+                      text-align: center;
+                      margin-bottom: -8px;
+                      font-size: 15px;
+                      color: white;
+                      cursor: pointer;
+                    "
+                     type="button"
+                    (click)="testtext.splice(i, 1)"
+                  >
+                    ลบออก
+                  </div>
+                </div>
+                <div
+                  maxlength="1"
+                  style="
+                    width: 120px;
+                    height: 150px;
+                    background-color: rgb(116, 116, 116);
+                    border-radius: 15px;
+                    font-size: 85px;
+                    text-align: center;
+                    color: white;
+                    border: 0px;
+                    z-index: 99;
+                  "
+                  
+                >
+                  {{ text }}
+                </div>
+              </div>
+            </ng-container>
+            <div class="col-fixed" style="width: 130px; margin-top: 20px">
+              <box [addMode]="true" text="+" (onAdd)="addText()"></box>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+<style>
+  html {
+    width: 100%;
+    height: 100%;
+  }
+
+  body {
+    margin: -8px;
+    padding: -8px;
+    overflow-x: hidden;
+  }
+
+  hr {
+    background-color: rgb(145, 145, 145);
+    height: 1px;
+    border: 0;
+  }
+</style>

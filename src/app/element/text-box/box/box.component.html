@@ -1,0 +1,36 @@
+<input
+  *ngIf="!addMode"
+  value="{{text}}"
+  maxlength="1"
+  (change)="textOnAdd($event)"
+  
+  style="
+    width: 120px;
+    height: 150px;
+    background-color: rgb(116, 116, 116);
+    border-radius: 15px;
+    font-size: 80px;
+    text-align: center;
+    color: white;
+    border: 0px;
+  "
+>
+
+
+
+<div
+  *ngIf="addMode"
+  style="
+    width: 120px;
+    height: 150px;
+    background-color: rgb(116, 116, 116);
+    border-radius: 15px;
+    font-size: 100px;
+    text-align: center;
+    color: rgb(165, 165, 165);
+    cursor: pointer;
+  "
+  (click)="addData()"
+>
+  <i class="pi pi-plus" style="font-size: 4.5rem"></i>
+</div>
