@@ -1,0 +1,21 @@
+[debug] [2022-08-09T15:01:00.207Z] ----------------------------------------------------------------------
+[debug] [2022-08-09T15:01:00.209Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\okoza\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2022-08-09T15:01:00.210Z] CLI Version:   11.3.0
+[debug] [2022-08-09T15:01:00.210Z] Platform:      win32
+[debug] [2022-08-09T15:01:00.210Z] Node Version:  v16.14.0
+[debug] [2022-08-09T15:01:00.212Z] Time:          Tue Aug 09 2022 22:01:00 GMT+0700 (เวลาอินโดจีน)
+[debug] [2022-08-09T15:01:00.212Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2022-08-09T15:01:00.257Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2022-08-09T15:01:00.259Z] > authorizing via signed-in user (ok.oza5555@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\okoza\Desktop\typingblind\typingblind
+
