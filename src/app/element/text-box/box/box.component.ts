@@ -11,6 +11,13 @@ type mode = ''|'emtpy' | 'edit'
   styleUrls: ['./box.component.css']
 })
 export class BoxComponent implements OnInit {
+
+  //play
+  @Input() playIndex: number = 0
+  @Input() playIndexSelectColor: number = 0
+
+
+
   @Input() text: string = ''
   @Input() addMode: mode = ''
   @Output() onAdd = new EventEmitter<boolean | string>();
@@ -19,7 +26,8 @@ export class BoxComponent implements OnInit {
 
   
   constructor() {
-
+    console.log(this.playIndex)
+    console.log(this.playIndexSelectColor)
    }
 
   ngOnInit(): void {

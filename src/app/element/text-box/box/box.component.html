@@ -3,6 +3,7 @@
   maxlength="1"
   (click)="addData()"
   class="reveal-animation"
+  [ngStyle]="{'background-color':playIndexSelectColor == playIndex?'red':''}"
   style="
     width: 120px;
     height: 150px;

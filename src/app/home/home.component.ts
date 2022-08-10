@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { KeyService } from '../service/keybord/key.service';
 
 @Component({
   selector: 'app-home',
@@ -8,20 +9,16 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,private key:KeyService) { }
 
   ngOnInit(): void {
-    var audio = new Audio();
-    audio.src = '../assets/sound/thai-sound/แนะนำหน้าเว็บ.mp3'
-    audio.load();
-    audio.play();
   }
 
   gotoCreate(){
-    this.router.navigate(['/create']);
+    this.router.navigate(['create']);
   }
   gotoPlay(){
-    this.router.navigate(['/play']);
+    this.router.navigate(['play','87568']);
   }
 
 }

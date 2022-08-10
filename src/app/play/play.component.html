@@ -1,1 +1,45 @@
-<p>play works!</p>
+<p-dialog
+  header="อ่านออกเสียง"
+  [dismissableMask]="true"
+  [modal]="true"
+  [(visible)]="test"
+>
+  <br />
+  <div class="grid">
+    <ng-container *ngFor="let i of data.type;let index = index">
+      <div class="col-fixed" style="width: 150px">
+        <box [playIndex]="index" [playIndexSelectColor]="playIndex" text="{{ i }}"></box>
+      </div>
+    </ng-container>
+  </div>
+  <br />
+  กด enter เพื่อเริ่มเกม <br>
+  ฟังอีกครั้งกด specbar 
+</p-dialog>
+
+<html>
+  <body style="background-color: rgb(62, 66, 68); height: 100vh">
+    <div></div>
+  </body>
+</html>
+
+<style>
+  html {
+    width: 100%;
+    height: 100%;
+  }
+
+  body {
+    margin: -8px;
+    padding: -8px;
+  }
+
+  .popup {
+    text-align: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+</style>

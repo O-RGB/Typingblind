@@ -11,20 +11,6 @@ export class AppComponent implements OnInit{
 
   constructor(){}
 
-  @HostListener('document:keypress', ['$event'])
-  handleKeyboardEvent(event: KeyboardEvent) { 
-    if(arrayText[event.key]){
-      this.tts(event.key)
-    }
-  }
-
-  tts(filename:string){
-    var audio = new Audio();
-    audio.src = '../assets/sound/thai-sound/'+filename+'.mp3'
-    audio.load();
-    audio.play();
-  }
-
   ngOnInit(): void {
     
   }
@@ -33,12 +19,3 @@ export class AppComponent implements OnInit{
 }
 
 
-const arrayText:any = {
-  "ก":'ก',
-  "ข":'ข',
-  "ฃ":'ฃ',
-  "ค":'ค',
-  "ฅ":'ฅ',
-  "ฆ":'ฆ',
-  "ง":'ง',
-}
