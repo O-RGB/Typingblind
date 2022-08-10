@@ -6,19 +6,75 @@
 >
   <br />
   <div class="grid">
-    <ng-container *ngFor="let i of data.type;let index = index">
+    <ng-container *ngFor="let i of data.type; let index = index">
       <div class="col-fixed" style="width: 150px">
-        <box [playIndex]="index" [playIndexSelectColor]="playIndex" text="{{ i }}"></box>
+        <box
+          [playIndex]="index"
+          [playIndexSelectColor]="playIndex"
+          text="{{ i }}"
+        ></box>
       </div>
     </ng-container>
   </div>
   <br />
-  กด enter เพื่อเริ่มเกม <br>
-  ฟังอีกครั้งกด specbar 
+  กด enter เพื่อเริ่มเกม <br />
+  ฟังอีกครั้งกด specbar
 </p-dialog>
 
 <html>
-  <body style="background-color: rgb(62, 66, 68); height: 100vh">
+  <body style="background-color: rgb(96, 96, 96); height: 100vh">
+    <div class="grid" style="padding: 10px">
+      <div class="col-12" style="height: 70px">
+        <button
+          pButton
+          pRipple
+          type="button"
+          style="color: white"
+          label="ด่านที่ 1"
+          class="p-button-text"
+        ></button>
+        <button
+          pButton
+          pRipple
+          type="button"
+          style="color: white; float: right"
+          label="ออกจากเกม"
+          class="p-button-text"
+        ></button>
+      </div>
+      <div class="col-12" style="width: 100%; height: 320px">
+        <div class="grid outer" style="margin: auto">
+          <ng-container *ngFor="let i of data.type; let index = index">
+            <div class="col-fixed" style="width: 130px">
+              <box
+                [playIndex]="index"
+                [playIndexSelectColor]="pass"
+                text="{{ i }}"
+              ></box>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+      <div
+        class="col-12"
+        style="height: 180px; background-color: rgb(129, 129, 129)"
+      >
+      <keybay (mistake)="setMistake()" (endGame)="setEnd()" (pass)="setPass($event)"  [right]="keybarCopy" #keybar></keybay>
+    </div>
+    </div>
+    <div style="color: white">
+      <div class="grid" style="padding: 10px;">
+        <div class="col-6">
+          <span>เวลา 0{{ min }}:{{ sec }}</span> {{ " | " }}
+          <span>ถูกต้อง {{ keyPass }}</span> {{ " | " }}
+          <span>ผิด {{ KeyMistake }}</span>
+        </div>
+
+        <div class="col-6" >
+            <span style="float: right;">คะแนน {{0}}</span>
+        </div>
+      </div>
+    </div>
     <div></div>
   </body>
 </html>
@@ -32,6 +88,7 @@
   body {
     margin: -8px;
     padding: -8px;
+    overflow-x: hidden;
   }
 
   .popup {
@@ -41,5 +98,13 @@
     left: 50%;
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
+  }
+
+  .outer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
   }
 </style>

@@ -1,0 +1,70 @@
+<div class="grid">
+  <div class="col" style="font-size: 80px; overflow: hidden; direction: rtl">
+    <table>
+      <tr>
+        <ng-container *ngFor="let data of left">
+          <th>
+            <box
+              [playIndexSelectColor]="-1"
+              [w]="90"
+              [h]="110"
+              [f]="65"
+              [bg]="true"
+              [cursor]="false"
+              colorText="rgb(131 227 40)"
+              style="float: left; margin-top: 35px"
+              text="{{ data }}"
+            ></box>
+          </th>
+        </ng-container>
+      </tr>
+    </table>
+  </div>
+
+  <div class="col-fixed" style="width: 120px; text-align: center">
+    <input
+      #mainFocus
+      maxlength="0"
+      type="text"
+      pInputText
+      style="
+        background-color: unset;
+        border: 0;
+        height: 160px;
+        width: 100px;
+        color: white;
+        font-size: 80px;
+        text-align: center;
+      "
+    />
+  </div>
+  {{(!this.end)?mainFocus.focus():''}}
+
+  <div class="col" style="font-size: 80px; overflow: hidden">
+    <!-- <span style="float: left;margin-top: 25px;white-space: nowrap;">{{right}}</span> -->
+    <table>
+      <tr>
+        <ng-container *ngFor="let data of right">
+          <th>
+            <box
+              [playIndexSelectColor]="-1"
+              [w]="90"
+              [h]="110"
+              [f]="65"
+              [bg]="true"
+              [cursor]="false"
+              style="float: left; margin-top: 35px"
+              text="{{ data }}"
+            ></box>
+          </th>
+        </ng-container>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<style>
+  input:focus {
+    box-shadow: none !important;
+  }
+</style>

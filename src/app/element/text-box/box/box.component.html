@@ -2,22 +2,30 @@
   *ngIf="addMode == ''"
   maxlength="1"
   (click)="addData()"
-  class="reveal-animation"
-  [ngStyle]="{'background-color':playIndexSelectColor == playIndex?'red':''}"
+  [ngClass]="!bg?'reveal-animation':''"
+  [ngStyle]="{
+    'background-color': playIndexSelectColor == playIndex ? 'red' : '',
+    'width': w + 'px',
+    'height': h + 'px',
+    'font-size': f + 'px',
+    'cursor': cursor?'pointer':'',
+    'color': colorText
+  }"
   style="
-    width: 120px;
-    height: 150px;
     border-radius: 15px;
-    font-size: 100px;
     text-align: center;
-    color: white;
     border: 0px;
-    cursor: pointer;
   "
 >
   <div class="grid">
     <div class="col"></div>
-    <div class="col" [ngStyle]="{'margin-top':maginTopFix+'px','margin-left':maginlifeFix+'px'}" >
+    <div
+      class="col"
+      [ngStyle]="{
+        'margin-top': maginTopFix + 'px',
+        'margin-left': maginlifeFix + 'px'
+      }"
+    >
       {{ text }}
     </div>
     <div class="col"></div>
@@ -42,7 +50,7 @@
 </div>
 
 <input
-class="Input"
+  class="Input"
   *ngIf="addMode == 'edit'"
   autofocus
   value="{{ text }}"

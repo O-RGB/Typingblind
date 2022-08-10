@@ -15,6 +15,7 @@ import {DialogModule} from 'primeng/dialog';
 import { TabComponent } from './create/tab/tab/tab.component';
 import { ListComponent } from './create/list/list/list.component';
 import { MenuComponent } from './create/menu/menu/menu.component';
+import { KeybayComponent } from './play/keybar/keybay/keybay.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { MenuComponent } from './create/menu/menu/menu.component';
     BoxComponent,
     TabComponent,
     ListComponent,
-    MenuComponent
+    MenuComponent,
+    KeybayComponent
   ],
   imports: [
     BrowserModule,

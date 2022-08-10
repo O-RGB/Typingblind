@@ -12,6 +12,15 @@ type mode = ''|'emtpy' | 'edit'
 })
 export class BoxComponent implements OnInit {
 
+  //UI
+  @Input() w: number = 120
+  @Input() h: number = 150
+  @Input() f: number = 100
+  @Input() bg: boolean = false
+  @Input() cursor: boolean = true
+  @Input() colorText: string = 'white'
+
+
   //play
   @Input() playIndex: number = 0
   @Input() playIndexSelectColor: number = 0
