@@ -16,6 +16,9 @@ import { TabComponent } from './create/tab/tab/tab.component';
 import { ListComponent } from './create/list/list/list.component';
 import { MenuComponent } from './create/menu/menu/menu.component';
 import { KeybayComponent } from './play/keybar/keybay/keybay.component';
+import { WinComponent } from './play/win/win.component';
+import { LoseComponent } from './play/lose/lose.component';
+import { CountComponent } from './play/count/count.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,10 @@ import { KeybayComponent } from './play/keybar/keybay/keybay.component';
     TabComponent,
     ListComponent,
     MenuComponent,
-    KeybayComponent
+    KeybayComponent,
+    WinComponent,
+    LoseComponent,
+    CountComponent
   ],
   imports: [
     BrowserModule,

@@ -21,6 +21,15 @@
   ฟังอีกครั้งกด specbar
 </p-dialog>
 
+<count [hidden]="runTime" #countTime></count>
+<win
+  #winPopup
+  [open]="endGame == true && runTime != true"
+  [time]="this.sec"
+  [miss]="KeyMistake"
+  [pass]="keyPass"
+></win>
+
 <html>
   <body style="background-color: rgb(96, 96, 96); height: 100vh">
     <div class="grid" style="padding: 10px">
@@ -59,19 +68,25 @@
         class="col-12"
         style="height: 180px; background-color: rgb(129, 129, 129)"
       >
-      <keybay (mistake)="setMistake()" (endGame)="setEnd()" (pass)="setPass($event)"  [right]="keybarCopy" #keybar></keybay>
-    </div>
+        <keybay
+          (mistake)="setMistake()"
+          (endGame)="setEnd()"
+          (pass)="setPass($event)"
+          [right]="keybarCopy"
+          #keybar
+        ></keybay>
+      </div>
     </div>
     <div style="color: white">
-      <div class="grid" style="padding: 10px;">
+      <div class="grid" style="padding: 10px">
         <div class="col-6">
           <span>เวลา 0{{ min }}:{{ sec }}</span> {{ " | " }}
           <span>ถูกต้อง {{ keyPass }}</span> {{ " | " }}
           <span>ผิด {{ KeyMistake }}</span>
         </div>
 
-        <div class="col-6" >
-            <span style="float: right;">คะแนน {{0}}</span>
+        <div class="col-6">
+          <span style="float: right">คะแนน {{ 0 }}</span>
         </div>
       </div>
     </div>
