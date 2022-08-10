@@ -12,6 +12,9 @@ import {ButtonModule} from 'primeng/button';
 import { BoxComponent } from './element/text-box/box/box.component';
 import {InputTextModule} from 'primeng/inputtext';
 import {DialogModule} from 'primeng/dialog';
+import { TabComponent } from './create/tab/tab/tab.component';
+import { ListComponent } from './create/list/list/list.component';
+import { MenuComponent } from './create/menu/menu/menu.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +22,10 @@ import {DialogModule} from 'primeng/dialog';
     HomeComponent,
     CreateComponent,
     PlayComponent,
-    BoxComponent
+    BoxComponent,
+    TabComponent,
+    ListComponent,
+    MenuComponent
   ],
   imports: [
     BrowserModule,

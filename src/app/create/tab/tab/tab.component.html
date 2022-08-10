@@ -1,0 +1,20 @@
+<div *ngFor="let data of list; let i = index">
+    <button
+      pButton
+      class="p-button-secondary"
+      type="button"
+      label="ด่านที่ {{ i + 1 }}"
+      style="font-size: 20px; width: 100%; margin-bottom: 5px"
+    ></button>
+  </div>
+  <div style="position: sticky; bottom: 0">
+    <button
+      pButton
+      pRipple
+      label="เพิ่ม +"
+      type="button"
+      style="font-size: 20px; width: 100%; margin-bottom: 5px"
+      class="p-button-info"
+      (click)="add()"
+    ></button>
+  </div>

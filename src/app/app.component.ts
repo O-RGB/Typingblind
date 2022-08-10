@@ -9,6 +9,8 @@ import { Component, HostListener, OnInit } from '@angular/core';
 export class AppComponent implements OnInit{
   title = 'ฝึกพิมดีดคนตาบอด';
 
+  constructor(){}
+
   @HostListener('document:keypress', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) { 
     if(arrayText[event.key]){
@@ -26,7 +28,8 @@ export class AppComponent implements OnInit{
   ngOnInit(): void {
     
   }
-  
+
+
 }
 
 

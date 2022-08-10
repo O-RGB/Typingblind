@@ -1,25 +1,30 @@
-<input
-  *ngIf="!addMode"
-  value="{{text}}"
+<div
+  *ngIf="addMode == ''"
   maxlength="1"
-  (change)="textOnAdd($event)"
-  
+  (click)="addData()"
+  class="reveal-animation"
   style="
     width: 120px;
     height: 150px;
-    background-color: rgb(116, 116, 116);
     border-radius: 15px;
-    font-size: 80px;
+    font-size: 100px;
     text-align: center;
     color: white;
     border: 0px;
+    cursor: pointer;
   "
 >
-
-
+  <div class="grid">
+    <div class="col"></div>
+    <div class="col" [ngStyle]="{'margin-top':maginTopFix+'px','margin-left':maginlifeFix+'px'}" >
+      {{ text }}
+    </div>
+    <div class="col"></div>
+  </div>
+</div>
 
 <div
-  *ngIf="addMode"
+  *ngIf="addMode == 'emtpy'"
   style="
     width: 120px;
     height: 150px;
@@ -34,3 +39,31 @@
 >
   <i class="pi pi-plus" style="font-size: 4.5rem"></i>
 </div>
+
+<input
+  *ngIf="addMode == 'edit'"
+  autofocus
+  value="{{ text }}"
+  maxlength="1"
+  (input)="addData($event)"
+  style="
+    width: 120px;
+    height: 150px;
+    background-color: rgb(116, 116, 116);
+    border-radius: 15px;
+    font-size: 80px;
+    text-align: center;
+    color: white;
+    border: 0px;
+    z-index: 99;
+  "
+/>
+
+<style>
+  .reveal-animation {
+    background-color: rgb(116, 116, 116);
+  }
+  .reveal-animation:hover {
+    background-color: rgb(138, 138, 138);
+  }
+</style>

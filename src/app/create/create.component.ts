@@ -25,7 +25,7 @@ export class CreateComponent implements OnInit {
 
 
   testBut:string[] = ['ege','weigie']
-  testtext:string[] = ['ก','ะ','t','ะ','d','ะ','g','ะ','e','ะ']
+  testtext:string[] = ['ี','ก','พ','ำ','ื','ะ','g','ะ','e','ะ','ะ','e','ะ','ะ','e','ะ']
   constructor(private router: Router) { }
 
   add(){
@@ -37,7 +37,7 @@ export class CreateComponent implements OnInit {
   }
 
   changeText(text:any){
-    this.editSaveData = text.data
+    this.editSaveData = text
   }
 
   saveText(){

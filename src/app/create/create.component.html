@@ -5,13 +5,13 @@
   [(visible)]="deleteData"
 >
   <button
-  pButton
-  pRipple
-  type="button"
-  (click)="deleteAllGame()"
-  label="ตกลง"
-  style="width: 100%"
-></button>
+    pButton
+    pRipple
+    type="button"
+    (click)="deleteAllGame()"
+    label="ตกลง"
+    style="width: 100%"
+  ></button>
 </p-dialog>
 
 <p-dialog
@@ -21,22 +21,11 @@
   [(visible)]="editData"
 >
   <div style="text-align: center">
-    <input
-      value="{{ editTextData }}"
-      maxlength="1"
-      (input)="changeText($event)"
-      style="
-        width: 120px;
-        height: 150px;
-        background-color: rgb(116, 116, 116);
-        border-radius: 15px;
-        font-size: 80px;
-        text-align: center;
-        color: white;
-        border: 0px;
-        z-index: 99;
-      "
-    />
+    <box
+      addMode="edit"
+      text="{{ editTextData }}"
+      (onAdd)="changeText($event)"
+    ></box>
   </div>
   <br />
   <button
@@ -62,60 +51,23 @@
     ></button>
 
     <div class="grid" style="padding: 5px; margin: 5px; position: relative">
-      <div
-        class="col-fixed test"
-        style="
-          width: 300px;
-          height: 80vh;
-          background-color: rgb(182, 182, 182);
-          border-radius: 10px;
-          overflow: auto;
-        "
-      >
-        <div *ngFor="let data of testBut; let i = index">
-          <button
-            pButton
-            class="p-button-secondary"
-            type="button"
-            label="ด่านที่ {{ i + 1 }}"
-            style="font-size: 20px; width: 100%; margin-bottom: 5px"
-          ></button>
-        </div>
-        <div style="position: sticky; bottom: 0">
-          <button
-            pButton
-            pRipple
-            label="เพิ่ม +"
-            type="button"
-            style="font-size: 20px; width: 100%; margin-bottom: 5px"
-            class="p-button-info"
-            (click)="add()"
-          ></button>
-        </div>
+      <div class="col-fixed test tab-bar">
+        <tab [list]="testBut" (onAdd)="add()"></tab>
       </div>
-      <div
-        class="col test"
-        style="
-          background-color: rgb(182, 182, 182);
-          border-radius: 10px;
-          margin-left: 10px;
-          overflow-x: auto;
-          height: 80vh;
-        "
-      >
+      <div class="col test list-bar">
         <div
           style="
             position: sticky;
-            top: -8px;
+            top: -9px;
             background-color: rgb(182, 182, 182);
             border-radius: 10px;
           "
         >
+        <div style="height: 8px;"></div>
           <button
             pButton
             pRipple
             type="button"
-            
             label="บันทึกรายการ"
             style="color: rgb(57, 57, 57); height: 20px"
             class="p-button-secondary p-button-text"
@@ -135,31 +87,13 @@
           <div class="grid">
             <ng-container *ngFor="let text of testtext; let i = index">
               <div class="col-fixed" style="width: 130px">
-                <!-- <box [index]="i" text="{{ text }}" (onChangeText)="changeText($event)"></box> -->
                 <div style="margin: 0px">
                   <div
-                    style="
-                      width: 40px;
-                      height: 22px;
-                      background-color: rgb(65, 65, 65);
-                      border-radius: 50px;
-                      text-align: center;
-                      margin-bottom: -23px;
-                      margin-left: 80px;
-                      font-size: 15px;
-                      color: white;
-                      cursor: pointer;
-                    "
-                     type="button"
-                    (click)="showDialogEditData(i)"
-                  >
-                    แก้ไข
-                  </div>
-                  <div
+                    class="reveal-animation"
                     style="
                       width: 59px;
                       height: 28px;
-                      background-color: rgb(215, 86, 86);
+
                       border-radius: 50px;
                       text-align: center;
                       margin-bottom: -8px;
@@ -167,33 +101,26 @@
                       color: white;
                       cursor: pointer;
                     "
-                     type="button"
+                    type="button"
                     (click)="testtext.splice(i, 1)"
                   >
                     ลบออก
                   </div>
+
+                  <style>
+                    .reveal-animation {
+                      background-color: rgb(210, 44, 44);
+                    }
+                    .reveal-animation:hover {
+                      background-color: rgb(255, 1, 1);
+                    }
+                  </style>
                 </div>
-                <div
-                  maxlength="1"
-                  style="
-                    width: 120px;
-                    height: 150px;
-                    background-color: rgb(116, 116, 116);
-                    border-radius: 15px;
-                    font-size: 85px;
-                    text-align: center;
-                    color: white;
-                    border: 0px;
-                    z-index: 99;
-                  "
-                  
-                >
-                  {{ text }}
-                </div>
+                <box text="{{ text }}" (onAdd)="showDialogEditData(i)"></box>
               </div>
             </ng-container>
             <div class="col-fixed" style="width: 130px; margin-top: 20px">
-              <box [addMode]="true" text="+" (onAdd)="addText()"></box>
+              <box addMode="emtpy" text="+" (onAdd)="addText()"></box>
             </div>
           </div>
         </div>
@@ -215,8 +142,24 @@
   }
 
   hr {
-    background-color: rgb(145, 145, 145);
+    background-color: rgb(173, 173, 173);
     height: 1px;
     border: 0;
+  }
+
+  .tab-bar {
+    width: 300px;
+    height: 80vh;
+    background-color: rgb(182, 182, 182);
+    border-radius: 10px;
+    overflow: auto;
+  }
+
+  .list-bar {
+    background-color: rgb(182, 182, 182);
+    border-radius: 10px;
+    margin-left: 10px;
+    overflow-x: auto;
+    height: 80vh;
   }
 </style>
