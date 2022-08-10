@@ -52,7 +52,13 @@
 
     <div class="grid" style="padding: 5px; margin: 5px; position: relative">
       <div class="col-fixed test tab-bar">
-        <tab [list]="testBut" (onAdd)="add()"></tab>
+        <tab
+          [list]="this.data"
+          [selectIndex]="hoverButGame"
+          (onAdd)="add()"
+          (onClickRestore)="restore($event)"
+          (onClickGame)="changeGame($event)"
+        ></tab>
       </div>
       <div class="col test list-bar">
         <div
@@ -62,8 +68,9 @@
             background-color: rgb(182, 182, 182);
             border-radius: 10px;
           "
+          *ngIf="this.data.length > 0"
         >
-        <div style="height: 8px;"></div>
+          <div style="height: 8px"></div>
           <button
             pButton
             pRipple
@@ -71,7 +78,9 @@
             label="บันทึกรายการ"
             style="color: rgb(57, 57, 57); height: 20px"
             class="p-button-secondary p-button-text"
+            (click)="save()"
           ></button>
+
           <button
             pButton
             pRipple
@@ -81,12 +90,31 @@
             class="p-button-secondary p-button-text"
             (click)="showDialogDeleteData()"
           ></button>
+
+          <button
+            *ngIf="
+              this.data.length > 0 && this.data[this.hoverButGame]
+                ? this.data[this.hoverButGame].onChange
+                : false
+            "
+            pButton
+            pRipple
+            type="button"
+            label="คืนค่าเดิม"
+            style="color: rgb(57, 57, 57); height: 20px; float: right"
+            class="p-button-secondary p-button-text"
+            (click)="restore()"
+          ></button>
           <hr />
         </div>
         <div style="padding: 10px">
           <div class="grid">
-            <ng-container *ngFor="let text of testtext; let i = index">
-              <div class="col-fixed" style="width: 130px">
+            <ng-container *ngIf="this.data.length > 0 && data[this.hoverButGame]">
+              <div
+                *ngFor="let text of data[this.hoverButGame].type; let i = index"
+                class="col-fixed"
+                style="width: 130px"
+              >
                 <div style="margin: 0px">
                   <div
                     class="reveal-animation"
@@ -96,13 +124,13 @@
 
                       border-radius: 50px;
                       text-align: center;
-                      margin-bottom: -8px;
+                      margin-bottom: -7px;
                       font-size: 15px;
                       color: white;
                       cursor: pointer;
                     "
                     type="button"
-                    (click)="testtext.splice(i, 1)"
+                    (click)="deleteEmemntGame(i)"
                   >
                     ลบออก
                   </div>
@@ -119,7 +147,11 @@
                 <box text="{{ text }}" (onAdd)="showDialogEditData(i)"></box>
               </div>
             </ng-container>
-            <div class="col-fixed" style="width: 130px; margin-top: 20px">
+            <div
+              class="col-fixed"
+              style="width: 130px; margin-top: 18px"
+              *ngIf="this.data.length > 0"
+            >
               <box addMode="emtpy" text="+" (onAdd)="addText()"></box>
             </div>
           </div>

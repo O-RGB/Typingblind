@@ -14,7 +14,7 @@ export class BoxComponent implements OnInit {
   @Input() text: string = ''
   @Input() addMode: mode = ''
   @Output() onAdd = new EventEmitter<boolean | string>();
-  maginTopFix: number = -20;
+  maginTopFix: number = -10;
   maginlifeFix: number = 0;
 
   
@@ -22,13 +22,11 @@ export class BoxComponent implements OnInit {
 
    }
 
-
-
-
   ngOnInit(): void {
-    if(sala[this.text]){
-      this.maginTopFix = 20
-      this.maginlifeFix = 50
+    let magin:any | undefined = sala[this.text]
+    if(magin){
+      this.maginTopFix = magin.maginTopFix
+      this.maginlifeFix = magin.maginlifeFix
     }
   }
 
@@ -42,8 +40,27 @@ export class BoxComponent implements OnInit {
 
 }
 
+
+
 const sala:any = {
-  "ี":'ี',
-  "่":'่',
-  "ื":'ื',
+  "ี":{//สระอี
+    maginTopFix:40,
+    maginlifeFix:50
+  },
+  "ิ":{//สระอิ
+    maginTopFix:40,
+    maginlifeFix:55
+  },
+  "ั":{//สระ  ั
+    maginTopFix:40,
+    maginlifeFix:30
+  },
+  "ื":{
+    maginTopFix:40,
+    maginlifeFix:50
+  },
+  "ำ":{
+    maginTopFix:0,
+    maginlifeFix:10
+  },
 }

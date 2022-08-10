@@ -1,20 +1,46 @@
 <div *ngFor="let data of list; let i = index">
-    <button
-      pButton
-      class="p-button-secondary"
-      type="button"
-      label="ด่านที่ {{ i + 1 }}"
-      style="font-size: 20px; width: 100%; margin-bottom: 5px"
-    ></button>
-  </div>
-  <div style="position: sticky; bottom: 0">
+  <p-dialog
+    header="ต้องการทิ้งการเปลี่ยนแปลงหรือไม่"
+    [dismissableMask]="true"
+    [modal]="true"
+    [(visible)]="displayCFNoneSave"
+  >
     <button
       pButton
       pRipple
-      label="เพิ่ม +"
       type="button"
-      style="font-size: 20px; width: 100%; margin-bottom: 5px"
-      class="p-button-info"
-      (click)="add()"
+      (click)="restore()"
+      label="ตกลง"
+      style="width: 100%"
     ></button>
-  </div>
+  </p-dialog>
+  <button
+    pButton
+    [ngStyle]="{
+      'background-color':
+        selectIndex == i ? 'rgb(140, 140, 140)' : 'rgb(110, 110, 110)'
+    }"
+    type="button"
+    label="ด่านที่ {{ i + 1 }}"
+    style="font-size: 20px; width: 100%; margin-bottom: 5px; border: 0px"
+    (click)="clickGame(i)"
+  ></button>
+</div>
+<div style="position: sticky; bottom: 0">
+  <button
+    pButton
+    pRipple
+    label="เพิ่ม +"
+    type="button"
+    style="
+      font-size: 20px;
+      width: 100%;
+      margin-bottom: 5px;
+      background-color: rgb(215, 215, 215);
+      color: rgb(104, 104, 104);
+      border: 0px;
+    "
+    class="p-button-info"
+    (click)="add()"
+  ></button>
+</div>
