@@ -19,6 +19,12 @@ import { KeybayComponent } from './play/keybar/keybay/keybay.component';
 import { WinComponent } from './play/win/win.component';
 import { LoseComponent } from './play/lose/lose.component';
 import { CountComponent } from './play/count/count.component';
+import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { environment } from '../environments/environment';
+import { provideDatabase,getDatabase } from '@angular/fire/database';
+import { provideFirestore,getFirestore } from '@angular/fire/firestore';
+import { EndComponent } from './play/end/end.component';
+import { LoadingComponent } from './play/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +39,9 @@ import { CountComponent } from './play/count/count.component';
     KeybayComponent,
     WinComponent,
     LoseComponent,
-    CountComponent
+    CountComponent,
+    EndComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,
@@ -42,6 +50,9 @@ import { CountComponent } from './play/count/count.component';
     InputTextModule,
     DialogModule,
     BrowserAnimationsModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideDatabase(() => getDatabase()),
+    provideFirestore(() => getFirestore()),
 
   ],
   providers: [],

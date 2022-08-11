@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "typingblind"
+  },
+  "targets": {
+    "typingblind": {
+      "hosting": {
+        "typingblind": [
+          "typingblind"
+        ]
+      }
+    }
   }
 }

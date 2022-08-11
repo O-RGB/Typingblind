@@ -1,0 +1,41 @@
+<p-dialog
+  header="🎉 Congratulations!! 🎉"
+  [modal]="true"
+  [closable]="false"
+  [(visible)]="open"
+>
+  <div class="grid" style="width: 600px">
+    <div class="col-12" style="text-align: center">
+      <h2>คะแนน</h2>
+      <h1 style="font-size: 70px; margin-top: -15px">548</h1>
+    </div>
+    <div class="col-12" style="margin-top: -50px">
+      <div class="grid" style="color: rgb(79, 79, 79)">
+        <div class="col" style="text-align: center">
+          <h3>ความเร็ว</h3>
+          <h1 style="margin-top: -15px">{{ 0 }}% sec.</h1>
+        </div>
+        <div class="col" style="text-align: center">
+          <h3>พิมพ์ถูก</h3>
+          <h1 style="margin-top: -15px">{{ 0 }}%</h1>
+        </div>
+        <div class="col" style="text-align: center">
+          <h3>พิพม์ผิด</h3>
+          <h1 style="margin-top: -15px">{{ 0 }}%</h1>
+        </div>
+      </div>
+    </div>
+    <div class="col-12" style="margin-top: -35px">
+      <div style="color: rgb(155, 155, 155); height: 35px; font-size: 16px">
+        กด Enter เพิ่อไปกลับหน้าแรก
+      </div>
+      <button
+        pButton
+        type="button"
+        label="หน้าแรก"
+        style="width: 100%"
+        class="p-button-secondary"
+      ></button>
+    </div>
+  </div>
+</p-dialog>
