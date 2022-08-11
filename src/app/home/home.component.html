@@ -1,5 +1,52 @@
+<p-dialog [modal]="true" [(visible)]="createMode" [showHeader]="false" [dismissableMask]="true">
+  <div class="grid" style="width: 500px; padding: 10px; height: 220px">
+    <div class="col-6" style="text-align: center">
+      <h2>สร้างเกมใหม่</h2>
+      <button
+        (click)="gotoCreate()"
+        pButton
+        pRipple
+        class="p-button-secondary"
+        type="button"
+        label="สร้างใหม่"
+        style="width: 100%; height: 120px"
+      ></button>
+    </div>
+    <div class="col-6" style="text-align: center">
+      <h2>แก้ไขเกม</h2>
+      <input (change)="URLC($event)" type="text" pInputText placeholder="URL" style="width: 100%" />
+      <div style="height: 10px;"></div>
+      <button
+        (click)="gotoURL()"
+        pButton
+        pRipple
+        class="p-button-secondary"
+        type="button"
+        label="ตกลง"
+        style="width: 100%; height: 50px"
+      ></button>
+    </div>
+  </div>
+</p-dialog>
 
+<p-dialog [modal]="true" [(visible)]="playMode" [showHeader]="false" [dismissableMask]="true">
+  <div style="width: 300px;">
+    <h2>ใส่ URL</h2>
+    <input (change)="URLP($event)" type="text" pInputText placeholder="URL" style="width: 100%" />
+    <div style="height: 10px;"></div>
+    <button
+        (click)="gotoPlay()"
+        pButton
+        pRipple
+        class="p-button-secondary"
+        type="button"
+        label="ตกลง"
+        style="width: 100%; height: 50px"
+      ></button>
+  </div>
+</p-dialog>
 
+<main-loading [hidden]="!load" [text]="this.text"></main-loading>
 <html>
   <body style="background-color: rgb(62, 66, 68); height: 100vh">
     <div class="popup">
@@ -11,7 +58,7 @@
           color: rgb(214, 214, 214);
         "
       >
-      เกมพิมพ์ดีด
+        เกมพิมพ์ดีด
       </div>
       <div style="height: 90px">
         <button
@@ -19,9 +66,8 @@
           class="p-button-secondary"
           type="button"
           label="เริ่มเกม"
-
           style="width: 600px; height: 80px; font-size: 30px"
-          (click)="gotoPlay()"
+          (click)="playMode = true"
         ></button>
       </div>
       <div style="height: 90px">
@@ -31,7 +77,7 @@
           type="button"
           label="สร้างเกม"
           style="width: 600px; height: 80px; font-size: 30px"
-          (click)="gotoCreate()"
+          (click)="createMode = true"
         ></button>
       </div>
     </div>
@@ -56,5 +102,9 @@
     left: 50%;
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
+  }
+
+  :host ::ng-deep .p-dialog .p-dialog-content:last-of-type {
+    border-radius: 5px;
   }
 </style>

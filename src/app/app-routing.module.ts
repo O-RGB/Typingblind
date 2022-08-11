@@ -7,7 +7,7 @@ import { PlayComponent } from './play/play.component';
 
 const routes: Routes = [
   { path: "", component: HomeComponent},
-  { path: "create", component: CreateComponent},
+  { path: "create/:game", component: CreateComponent},
   { path: "play/:game", component: PlayComponent}
 ];
 

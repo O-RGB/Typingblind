@@ -5,6 +5,8 @@ import { KeybayComponent } from './keybar/keybay/keybay.component';
 import { WinComponent } from './win/win.component';
 import { LoseComponent } from './lose/lose.component';
 import { LoadingComponent } from './loading/loading.component';
+import { ActivatedRoute } from '@angular/router';
+import { CreateService } from '../service/firebase/create.service';
 
 @Component({
   selector: 'app-play',
@@ -39,6 +41,7 @@ export class PlayComponent implements OnInit {
   KeyMistake: number = 0
 
   loadData: boolean = false
+  idURL: any;
 
   resetState() {
     this.redeyGame = false
@@ -65,33 +68,11 @@ export class PlayComponent implements OnInit {
     loading.load();
     loading.play();
     return new Promise((resolve) => {
-      setTimeout(() => {
-        this.data = [
-          {
-            game: 0,
-            type: ['่', '้', '๊', '์', 'ๆ', 'ฯ', 'ฐ', 'ญ', 'ั', '็', '์'],
-            back: ['ฟ', 'ก', 'ด', 'ย'],
-            onChange: false,
-            end: false
-          },
-          {
-            game: 1,
-            type: ['ะ', 'า', 'ิ', 'ี', 'ึ', 'ื', 'ุ', 'ู', 'เ', 'แ', 'โ'],
-            back: ['ฟ', 'ก', 'ด', 'ย'],
-            onChange: false,
-            end: false
-          },
-
-          {
-            game: 2,
-            type: ['น', '่', 'า', 'ร', 'ั', 'ก'],
-            back: ['ฟ', 'ก', 'ด', 'ย'],
-            onChange: false,
-            end: true
-          }]
-        this.loadData = false
+      this.database.getById(this.idURL).then((data: any) => {
+        this.data = data.game
         resolve(true)
-      }, 2000);
+        this.loadData = false
+      })
     })
   }
 
@@ -278,15 +259,19 @@ export class PlayComponent implements OnInit {
     this.keybarCopy = data
   }
 
-  constructor(private key: KeyService) {
+  constructor(private key: KeyService, private activatedRoute: ActivatedRoute, private database: CreateService) {
     this.waitSpeech = true
-    this.getData().then(data => {
-      this.startGame()
-    })
   }
 
   ngOnInit(): void {
-
+    this.activatedRoute.params.subscribe((paramsId: any) => {
+      this.idURL = paramsId.game;
+      if (this.idURL != '') {
+        this.getData().then(data => {
+          this.startGame()
+        })
+      }
+    });
   }
 
 }

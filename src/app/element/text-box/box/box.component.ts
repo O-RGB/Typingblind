@@ -13,9 +13,9 @@ type mode = ''|'emtpy' | 'edit'
 export class BoxComponent implements OnInit {
 
   //UI
-  @Input() w: number = 120
-  @Input() h: number = 150
-  @Input() f: number = 100
+  @Input() w: number = 100
+  @Input() h: number = 130
+  @Input() f: number = 85
   @Input() bg: boolean = false
   @Input() cursor: boolean = true
   @Input() colorText: string = 'white'
@@ -105,24 +105,24 @@ const sala:any = {
     maginlifeFix:0
   },///////////////////////////////////
   '่':{//ไม้เอก
-    maginTopFix:40,
-    maginlifeFix:30
+    maginTopFix:35,
+    maginlifeFix:20
   },
   '้':{//ไม้โท
-    maginTopFix:40,
+    maginTopFix:35,
     maginlifeFix:30
   },
   '๊':{//ไม้ตรี
-    maginTopFix:40,
+    maginTopFix:35,
     maginlifeFix:40
   },
   '์':{//ไม้จัตวา
-    maginTopFix:40,
+    maginTopFix:35,
     maginlifeFix:30
   },//////////////////////////////////
   'ั':{//ไม้หัน
-    maginTopFix:40,
-    maginlifeFix:35
+    maginTopFix:35,
+    maginlifeFix:25
   },
   '็':{//ไม้ไต่คู้
     maginTopFix:40,
@@ -134,7 +134,7 @@ const sala:any = {
   },
   'ญ':{//
     maginTopFix:-15,
-    maginlifeFix:-5
+    maginlifeFix:-11
   },
 }
 

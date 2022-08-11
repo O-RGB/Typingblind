@@ -24,6 +24,9 @@ import { environment } from '../environments/environment';
 import { provideDatabase,getDatabase } from '@angular/fire/database';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { EndComponent } from './play/end/end.component';
+import { AngularFireModule} from '@angular/fire/compat';
+
+import { MainLoadingComponent } from './element/main-loading/main-loading.component';
 import { LoadingComponent } from './play/loading/loading.component';
 
 @NgModule({
@@ -41,7 +44,8 @@ import { LoadingComponent } from './play/loading/loading.component';
     LoseComponent,
     CountComponent,
     EndComponent,
-    LoadingComponent
+    LoadingComponent,
+    MainLoadingComponent
   ],
   imports: [
     BrowserModule,
@@ -50,12 +54,14 @@ import { LoadingComponent } from './play/loading/loading.component';
     InputTextModule,
     DialogModule,
     BrowserAnimationsModule,
+    AngularFireModule.initializeApp(environment.firebase),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideDatabase(() => getDatabase()),
     provideFirestore(() => getFirestore()),
 
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+
 })
 export class AppModule { }

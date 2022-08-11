@@ -1,7 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { SelectService } from '../service/firebase/select.service';
+import { CreateService } from '../service/firebase/create.service';
 
-
+interface game {
+  type: string[],
+  back: string[],
+  onChange: boolean,
+  end: boolean
+}
 
 @Component({
   selector: 'app-create',
@@ -11,7 +18,10 @@ import { Router } from '@angular/router';
 export class CreateComponent implements OnInit {
 
 
-  data:any = []
+  idURL: string = ''
+  data: game[] = []
+  load: boolean = false
+  text: string = 'กำลังโหลดข้อมูล Game'
   // data: any = [{
   //   game: 0,
   //   type: ['ฟ', 'ก', 'ด', 'ย'],
@@ -62,10 +72,7 @@ export class CreateComponent implements OnInit {
   ///[end tab]///
 
 
-  constructor(private router: Router) {
-    // this.data.map((data:any) => {
-    //   data.back = data.type
-    // })
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private database: CreateService) {
   }
 
 
@@ -73,7 +80,8 @@ export class CreateComponent implements OnInit {
     this.data.push({
       type: [],
       back: [],
-      onChange: true
+      onChange: true,
+      end: false
     })
     this.hoverButGame = this.data.length - 1
   }
@@ -82,6 +90,9 @@ export class CreateComponent implements OnInit {
     const data = this.data[this.hoverButGame].type.map((data: any) => data)
     this.data[this.hoverButGame].back = data
     this.data[this.hoverButGame].onChange = false
+    this.data.map((data: any) => data.end = false)
+    this.data[this.data.length - 1].end = true
+    this.database.saveByID(this.idURL, this.data)
   }
 
   addText() {
@@ -146,7 +157,18 @@ export class CreateComponent implements OnInit {
     this.router.navigate(['']);
   }
 
+
   ngOnInit(): void {
+    this.activatedRoute.params.subscribe((paramsId: any) => {
+      this.idURL = paramsId.game;
+      if (this.idURL != '') {
+        console.log(this.idURL)
+        this.database.getById(this.idURL).then((data: any) => {
+          this.data = data.game
+          this.load = true
+        })
+      }
+    });
   }
 
 }
