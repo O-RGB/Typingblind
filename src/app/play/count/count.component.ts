@@ -9,6 +9,12 @@ export class CountComponent implements OnInit {
 
   constructor() { }
 
+  public gameCounting = false
+
+  public getStadeCounting(){
+    return this.gameCounting
+  }
+
   audio = new Audio();
   soundEffect() {
     this.audio.src = '../../../assets/sound/start/countMusic.mp3'
@@ -23,6 +29,7 @@ export class CountComponent implements OnInit {
 
   countnumber: number = 3
   count() {
+    this.gameCounting = true
     this.audio.src = '../../../assets/sound/start/CountdownStart.mp3'
     this.audio.load();
     this.audio.play();
@@ -33,6 +40,7 @@ export class CountComponent implements OnInit {
         this.audio.load();
         this.audio.play();
         setTimeout(() => {
+          this.gameCounting = false
           this.soundEffect()
           this.countnumber = 3
         }, 1000);

@@ -7,11 +7,15 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class WinComponent implements OnInit {
 
-  @Input() time:string = ''
-  @Input() pass:number = 0
-  @Input() miss:number = 0
-  @Input() open:boolean = false
-  public sound(){
+  @Input() time: string = ''
+  @Input() pass: number = 0
+  @Input() miss: number = 0
+  @Input() open: boolean = false
+  public sound() {
+    let audioWin = new Audio();
+    audioWin.src = '../../../assets/sound/win/LevelUp.mp3'
+    audioWin.load();
+    audioWin.play();
     setTimeout(() => {
       console.log("test ")
       let audioWin = new Audio();
@@ -23,7 +27,7 @@ export class WinComponent implements OnInit {
 
   constructor() { }
 
-  test:boolean = true
+  test: boolean = true
 
   ngOnInit(): void {
   }

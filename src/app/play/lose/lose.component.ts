@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'lose',
@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoseComponent implements OnInit {
 
+  @Input() open: boolean = false
   constructor() { }
 
   ngOnInit(): void {

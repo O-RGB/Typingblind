@@ -13,28 +13,31 @@ export class PlayComponent implements OnInit {
 
   data: any = {
     game: 0,
-    type: ['ก', 'ข', 'ฃ', 'ค', 'ฅ', 'ฆ', 'ง'],
+    type: ['อ', 'อ', 'ก', 'เ', 'ธ', 'อ'],
     back: ['ฟ', 'ก', 'ด', 'ย'],
     onChange: false,
   }
 
   endGame: boolean = false
-  
+  redeyGame: boolean = false
+
+
   intoPopupIndexPlay: number = -1
   intoPopupPlay: boolean = false
-  
+
   runTime: boolean = false
   sec: string = '00'
   min: number = 0
-  
+
   displayInputPlay = true
-  
+
   keybarCopy: string[] = []
   pass: number = 0
   keyPass: number = 0
   KeyMistake: number = 0
 
-  resetState(){
+  resetState() {
+    this.redeyGame = false
     this.endGame = false
     this.intoPopupIndexPlay = -1
     this.intoPopupPlay = false
@@ -50,12 +53,12 @@ export class PlayComponent implements OnInit {
     this.startGame()
   }
 
-  getData():Promise<boolean>{
+  getData(): Promise<boolean> {
     return new Promise((resolve) => {
       setTimeout(() => {
         this.data = {
           game: 1,
-          type: ['ก', 'ก', 'ฃ', 'ก', 'ฅ', 'ฆ', 'ก'],
+          type: ['น', '่', 'า', 'ร', 'ั', 'ก'],
           back: ['ฟ', 'ก', 'ด', 'ย'],
           onChange: false,
         }
@@ -88,7 +91,8 @@ export class PlayComponent implements OnInit {
     })
   }
 
-  startGame(){
+  startGame() {
+    this.intoPopupPlay = true
     this.soundEffect().then(data => {
       this.run(this.data.type.length)
     })
@@ -104,35 +108,37 @@ export class PlayComponent implements OnInit {
   @HostListener('document:keypress', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
     console.log(event.key)
-    if (event.key == 'Enter') {
-      if(this.intoPopupPlay == false && this.endGame == false){
+    if (event.key == 'Enter' && this.redeyGame == false) {
+      if (this.intoPopupPlay == false && this.endGame == false && this.min != 1 ) {
         this.displayInputPlay = false
+        this.redeyGame = true
         this.countTime.count()
         setTimeout(() => {
           this.time()
         }, 3000);
-      }else if(this.endGame == true){
+      } else if (this.endGame == true && this.min != 1) {
         this.getData().then(data => {
           this.resetState()
         })
+      } else if (this.min == 1) {
+        this.resetState()
       }
     } else if (event.key == ' ') {
       if (!this.intoPopupPlay && this.displayInputPlay) {
         let i = this.data.type.length
         this.intoPopupIndexPlay = -1
         this.run(i)
-      }else if(this.runTime == true){
-        console.log('fff')
+      } else if (this.runTime == true) {
         this.key.speech(this.data.type[this.keyPass])
       }
     }
-    else {
+    else if (event.key != 'Enter' && this.redeyGame == true) {
       this.Keybar.typeText(event.key)
       this.key.speech(event.key)
     }
   }
 
-  
+
 
   setPass(i: number) {
     this.pass = i
@@ -144,12 +150,14 @@ export class PlayComponent implements OnInit {
 
   setEnd() {
     this.endGame = true
-    this.winPopup.sound()
+    this.redeyGame = false
+    if (this.min != 1) {
+      this.winPopup.sound()
+    }
     this.countTime.stopSound()
   }
   run(length: number, time: number = 0, i: number = 0) {
-    this.intoPopupPlay = true
-    if(this.displayInputPlay){
+    if (this.displayInputPlay) {
       setTimeout(() => {
         this.key.speech(this.data.type[i])
         if (i < length) {
@@ -161,11 +169,11 @@ export class PlayComponent implements OnInit {
           this.soundEffectReplay()
         }
       }, time);
-    }else{
+    } else {
       this.intoPopupPlay = false
     }
   }
-  
+
   time() {
     this.runTime = true
     setTimeout(() => {
@@ -183,8 +191,8 @@ export class PlayComponent implements OnInit {
         this.sec = '00'
       }
 
-      if (!this.endGame && this.min != 1) { this.time() } 
-      else { this.runTime = false }
+      if (!this.endGame && this.min != 1) { this.time() }
+      else { this.runTime = false; this.countTime.stopSound();this.redeyGame = false }
     }, 1000);
   }
 

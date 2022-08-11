@@ -1,7 +1,7 @@
 <p-dialog
   header="อ่านออกเสียง"
-  [dismissableMask]="true"
   [modal]="true"
+  [closable]="false"
   [(visible)]="displayInputPlay"
 >
   <br />
@@ -22,9 +22,10 @@
 </p-dialog>
 
 <count [hidden]="runTime" #countTime></count>
+<lose [open]="min == 1"></lose>
 <win
   #winPopup
-  [open]="endGame == true && runTime != true"
+  [open]="endGame == true && runTime == false && min == 0"
   [time]="this.sec"
   [miss]="KeyMistake"
   [pass]="keyPass"
