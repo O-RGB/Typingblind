@@ -11,6 +11,59 @@ import { WinComponent } from './win/win.component';
 })
 export class PlayComponent implements OnInit {
 
+  data: any = {
+    game: 0,
+    type: ['ก', 'ข', 'ฃ', 'ค', 'ฅ', 'ฆ', 'ง'],
+    back: ['ฟ', 'ก', 'ด', 'ย'],
+    onChange: false,
+  }
+
+  endGame: boolean = false
+  
+  intoPopupIndexPlay: number = -1
+  intoPopupPlay: boolean = false
+  
+  runTime: boolean = false
+  sec: string = '00'
+  min: number = 0
+  
+  displayInputPlay = true
+  
+  keybarCopy: string[] = []
+  pass: number = 0
+  keyPass: number = 0
+  KeyMistake: number = 0
+
+  resetState(){
+    this.endGame = false
+    this.intoPopupIndexPlay = -1
+    this.intoPopupPlay = false
+    this.runTime = false
+    this.sec = '00'
+    this.min = 0
+    this.displayInputPlay = true
+    this.keybarCopy = []
+    this.pass = 0
+    this.keyPass = 0
+    this.KeyMistake = 0
+    this.Keybar.reset()
+    this.startGame()
+  }
+
+  getData():Promise<boolean>{
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        this.data = {
+          game: 1,
+          type: ['ก', 'ก', 'ฃ', 'ก', 'ฅ', 'ฆ', 'ก'],
+          back: ['ฟ', 'ก', 'ด', 'ย'],
+          onChange: false,
+        }
+        resolve(true)
+      }, 2000);
+    })
+  }
+
   soundEffect(): Promise<boolean> {
     return new Promise((resolve) => {
       var audio = new Audio();
@@ -35,13 +88,14 @@ export class PlayComponent implements OnInit {
     })
   }
 
-  counting(): Promise<boolean> {
-    return new Promise((resolve) => {
-      var audio = new Audio();
-      resolve(true)
-
+  startGame(){
+    this.soundEffect().then(data => {
+      this.run(this.data.type.length)
     })
+    this.copyArray()
   }
+
+
 
   @ViewChild('keybar') Keybar!: KeybayComponent;
   @ViewChild('countTime') countTime!: CountComponent;
@@ -51,15 +105,21 @@ export class PlayComponent implements OnInit {
   handleKeyboardEvent(event: KeyboardEvent) {
     console.log(event.key)
     if (event.key == 'Enter') {
-      this.test = false
-      this.countTime.count()
-      setTimeout(() => {
-        this.time()
-      }, 3000);
+      if(this.intoPopupPlay == false && this.endGame == false){
+        this.displayInputPlay = false
+        this.countTime.count()
+        setTimeout(() => {
+          this.time()
+        }, 3000);
+      }else if(this.endGame == true){
+        this.getData().then(data => {
+          this.resetState()
+        })
+      }
     } else if (event.key == ' ') {
-      if (!this.playRun && this.test) {
+      if (!this.intoPopupPlay && this.displayInputPlay) {
         let i = this.data.type.length
-        this.playIndex = -1
+        this.intoPopupIndexPlay = -1
         this.run(i)
       }else if(this.runTime == true){
         console.log('fff')
@@ -72,17 +132,8 @@ export class PlayComponent implements OnInit {
     }
   }
 
-  data: any = {
-    game: 0,
-    type: ['ก', 'ข', 'ฃ', 'ค', 'ฅ', 'ฆ', 'ง'],
-    back: ['ฟ', 'ก', 'ด', 'ย'],
-    onChange: false,
-  }
+  
 
-  keybarCopy: string[] = []
-  pass: number = 0
-  keyPass: number = 0
-  KeyMistake: number = 0
   setPass(i: number) {
     this.pass = i
     this.keyPass++
@@ -91,37 +142,30 @@ export class PlayComponent implements OnInit {
     this.KeyMistake++
   }
 
-  endGame: boolean = false
   setEnd() {
     this.endGame = true
     this.winPopup.sound()
     this.countTime.stopSound()
   }
-
-  playIndex: number = -1
-  playRun: boolean = false
   run(length: number, time: number = 0, i: number = 0) {
-    this.playRun = true
-    if(this.test){
+    this.intoPopupPlay = true
+    if(this.displayInputPlay){
       setTimeout(() => {
         this.key.speech(this.data.type[i])
         if (i < length) {
-          this.playIndex = this.playIndex + 1
+          this.intoPopupIndexPlay = this.intoPopupIndexPlay + 1
           this.run(length, 1000, i + 1)
         } else {
-          this.playIndex = this.playIndex + 1
-          this.playRun = false
+          this.intoPopupIndexPlay = this.intoPopupIndexPlay + 1
+          this.intoPopupPlay = false
           this.soundEffectReplay()
         }
       }, time);
     }else{
-      this.playRun = false
+      this.intoPopupPlay = false
     }
   }
-
-  runTime: boolean = false
-  sec: string = '00'
-  min: number = 0
+  
   time() {
     this.runTime = true
     setTimeout(() => {
@@ -149,12 +193,8 @@ export class PlayComponent implements OnInit {
     this.keybarCopy = data
   }
 
-  test = true
   constructor(private key: KeyService) {
-    this.soundEffect().then(data => {
-      this.run(this.data.type.length)
-    })
-    this.copyArray()
+    this.startGame()
   }
 
   ngOnInit(): void {

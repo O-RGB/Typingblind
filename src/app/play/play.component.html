@@ -2,7 +2,7 @@
   header="อ่านออกเสียง"
   [dismissableMask]="true"
   [modal]="true"
-  [(visible)]="test"
+  [(visible)]="displayInputPlay"
 >
   <br />
   <div class="grid">
@@ -10,7 +10,7 @@
       <div class="col-fixed" style="width: 150px">
         <box
           [playIndex]="index"
-          [playIndexSelectColor]="playIndex"
+          [playIndexSelectColor]="intoPopupIndexPlay"
           text="{{ i }}"
         ></box>
       </div>

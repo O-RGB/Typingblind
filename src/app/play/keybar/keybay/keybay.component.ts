@@ -8,7 +8,6 @@ import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild }
 export class KeybayComponent implements OnInit {
 
   
-  @ViewChild('mainFocus') mainFocus!: ElementRef | any;
   @Output() pass = new EventEmitter<number>();
   @Output() mistake = new EventEmitter<boolean>();
   @Output() endGame = new EventEmitter<boolean>();
@@ -46,6 +45,11 @@ export class KeybayComponent implements OnInit {
         this.endGame.emit(true)
       }
     }
+  }
+
+  public reset(){
+    this.left= []
+    this.end = false
   }
 
 

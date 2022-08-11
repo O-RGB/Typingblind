@@ -4,9 +4,40 @@
   [modal]="true"
   [(visible)]="open"
 >
-  
-    {{time}}
-    {{pass}}
-    {{miss}}
-  
+  <div class="grid" style="width: 600px; height: 300px">
+    <div class="col-12">
+      <div class="grid" style="color: rgb(79, 79, 79)">
+        <div class="col" style="text-align: center">
+          <h2>ใช้เวลา</h2>
+
+          <h1>{{ time }} sec.</h1>
+        </div>
+        <div class="col" style="text-align: center">
+          <h2>พิมพ์ถูก</h2>
+          <h1>
+            {{ pass }}
+          </h1>
+        </div>
+        <div class="col" style="text-align: center">
+          <h2>พิพม์ผิด</h2>
+
+          <h1>
+            {{ miss }}
+          </h1>
+        </div>
+      </div>
+    </div>
+    <div class="col-12">
+      <div style="color: rgb(155, 155, 155); height: 35px;font-size: 16px;">
+        กด Enter เพิ่อไปด่านต่อไป
+      </div>
+      <button
+        pButton
+        type="button"
+        label="ไปด่านต่อไป"
+        style="width: 100%"
+        class="p-button-secondary"
+      ></button>
+    </div>
+  </div>
 </p-dialog>
