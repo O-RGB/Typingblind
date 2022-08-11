@@ -22,7 +22,7 @@
 </p-dialog>
 
 <count [hidden]="runTime" #countTime></count>
-<lose [open]="min == 1"></lose>
+<lose [open]="min == 1" #losePopup></lose>
 <win
   #winPopup
   [open]="endGame == true && runTime == false && min == 0"
@@ -40,7 +40,7 @@
           pRipple
           type="button"
           style="color: white"
-          label="ด่านที่ 1"
+          label="ด่านที่ {{data.game+1}}"
           class="p-button-text"
         ></button>
         <button

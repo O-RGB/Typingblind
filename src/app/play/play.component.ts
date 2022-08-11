@@ -3,6 +3,7 @@ import { KeyService } from '../service/keybord/key.service';
 import { CountComponent } from './count/count.component';
 import { KeybayComponent } from './keybar/keybay/keybay.component';
 import { WinComponent } from './win/win.component';
+import { LoseComponent } from './lose/lose.component';
 
 @Component({
   selector: 'app-play',
@@ -17,6 +18,8 @@ export class PlayComponent implements OnInit {
     back: ['ฟ', 'ก', 'ด', 'ย'],
     onChange: false,
   }
+
+  english = /^[A-Za-z]*$/;
 
   endGame: boolean = false
   redeyGame: boolean = false
@@ -36,6 +39,8 @@ export class PlayComponent implements OnInit {
   keyPass: number = 0
   KeyMistake: number = 0
 
+  loadData:boolean = false
+
   resetState() {
     this.redeyGame = false
     this.endGame = false
@@ -54,6 +59,11 @@ export class PlayComponent implements OnInit {
   }
 
   getData(): Promise<boolean> {
+    this.loadData = true
+    let loading = new Audio();
+    loading.src = '../../../assets/sound/win/loading.mp3'
+    loading.load();
+    loading.play();
     return new Promise((resolve) => {
       setTimeout(() => {
         this.data = {
@@ -62,6 +72,7 @@ export class PlayComponent implements OnInit {
           back: ['ฟ', 'ก', 'ด', 'ย'],
           onChange: false,
         }
+        this.loadData = false
         resolve(true)
       }, 2000);
     })
@@ -104,18 +115,19 @@ export class PlayComponent implements OnInit {
   @ViewChild('keybar') Keybar!: KeybayComponent;
   @ViewChild('countTime') countTime!: CountComponent;
   @ViewChild('winPopup') winPopup!: WinComponent;
+  @ViewChild('losePopup') losePopup!: LoseComponent;
 
-  @HostListener('document:keypress', ['$event'])
+  @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
     console.log(event.key)
-    if (event.key == 'Enter' && this.redeyGame == false) {
-      if (this.intoPopupPlay == false && this.endGame == false && this.min != 1 ) {
-        this.displayInputPlay = false
+    if (event.key == 'Enter' && this.redeyGame == false && this.loadData == false) {
+      if (this.intoPopupPlay == false && this.endGame == false && this.min != 1) {
         this.redeyGame = true
+        this.displayInputPlay = false
         this.countTime.count()
         setTimeout(() => {
           this.time()
-        }, 3000);
+        }, 4000);
       } else if (this.endGame == true && this.min != 1) {
         this.getData().then(data => {
           this.resetState()
@@ -133,8 +145,15 @@ export class PlayComponent implements OnInit {
       }
     }
     else if (event.key != 'Enter' && this.redeyGame == true) {
-      this.Keybar.typeText(event.key)
-      this.key.speech(event.key)
+      if (this.english.test(event.key)) {
+        let language = new Audio();
+        language.src = '../../assets/sound/start/language.mp3'
+        language.load();
+        language.play();
+      } else {
+        this.Keybar.typeText(event.key)
+        this.key.speech(event.key)
+      }
     }
   }
 
@@ -153,6 +172,8 @@ export class PlayComponent implements OnInit {
     this.redeyGame = false
     if (this.min != 1) {
       this.winPopup.sound()
+    }else{
+      this.losePopup.sound()
     }
     this.countTime.stopSound()
   }
@@ -192,7 +213,15 @@ export class PlayComponent implements OnInit {
       }
 
       if (!this.endGame && this.min != 1) { this.time() }
-      else { this.runTime = false; this.countTime.stopSound();this.redeyGame = false }
+      else if(this.min == 1){
+        // this.losePopup.sound()
+        this.setEnd()
+      }
+      else { 
+        this.runTime = false; 
+        this.countTime.stopSound(); 
+        this.redeyGame = false 
+      }
     }, 1000);
   }
 
