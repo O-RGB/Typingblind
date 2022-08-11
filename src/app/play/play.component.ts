@@ -21,7 +21,7 @@ export class PlayComponent implements OnInit {
   redeyGame: boolean = false
   gameRound: number = 0//ด่านที่กำลังเล่นอยู่
 
-  waitSpeech:boolean = false
+  waitSpeech: boolean = false
 
 
   intoPopupIndexPlay: number = -1
@@ -66,24 +66,41 @@ export class PlayComponent implements OnInit {
     loading.play();
     return new Promise((resolve) => {
       setTimeout(() => {
-        this.data = [{
-          game: 0,
-          type: ['ค', 'ิ', 'ด', 'ถ', 'ึ', 'ง'],
-          back: ['ฟ', 'ก', 'ด', 'ย'],
-          onChange: false,
-          end: false
-        }, {
-          game: 0,
-          type: ['น', '่', 'า', 'ร', 'ั', 'ก'],
-          back: ['ฟ', 'ก', 'ด', 'ย'],
-          onChange: false,
-          end: true
-        }]
+        this.data = [
+          {
+            game: 0,
+            type: ['่', '้', '๊', '์', 'ๆ', 'ฯ', 'ฐ', 'ญ', 'ั', '็', '์'],
+            back: ['ฟ', 'ก', 'ด', 'ย'],
+            onChange: false,
+            end: false
+          },
+          {
+            game: 1,
+            type: ['ะ', 'า', 'ิ', 'ี', 'ึ', 'ื', 'ุ', 'ู', 'เ', 'แ', 'โ'],
+            back: ['ฟ', 'ก', 'ด', 'ย'],
+            onChange: false,
+            end: false
+          },
+
+          {
+            game: 2,
+            type: ['น', '่', 'า', 'ร', 'ั', 'ก'],
+            back: ['ฟ', 'ก', 'ด', 'ย'],
+            onChange: false,
+            end: true
+          }]
         this.loadData = false
         resolve(true)
       }, 2000);
     })
   }
+
+  
+//   ่  ้  ๊  ๋ 
+//   ั  
+//   ็   ์ 
+//  ๆ ฯ 
+//  ฦ ฤ
 
   soundEffect(): Promise<boolean> {
     return new Promise((resolve) => {
@@ -113,7 +130,7 @@ export class PlayComponent implements OnInit {
   startGame() {
     // this.loading.sound()
 
-    
+
     this.soundEffect().then(data => {
       this.run(this.data[this.gameRound].type.length)
     })
@@ -132,7 +149,7 @@ export class PlayComponent implements OnInit {
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
     console.log(event.key)
-    if(this.waitSpeech == false){
+    if (this.waitSpeech == false) {
       if (event.key == 'Enter' && this.redeyGame == false) {
         if (this.intoPopupPlay == false && this.endGame == false && this.min != 1) {
           this.redeyGame = true
@@ -146,14 +163,14 @@ export class PlayComponent implements OnInit {
           if (this.data.length > 0) {
             if (this.gameRound + 1 <= this.data.length)
               this.gameRound = this.gameRound + 1
-              this.resetState()
+            this.resetState()
           }
-  
+
         } else if (this.min == 1) {
           this.resetState()
         }
       } else if (event.key == ' ') {
-        console.log(this.intoPopupPlay,this.displayInputPlay)
+        console.log(this.intoPopupPlay, this.displayInputPlay)
         if (this.intoPopupPlay == false && this.displayInputPlay == true) {//replay intro
           //displayInputPlay กำลังโชว์ into อยู่ไหม == true
           //intoPopupPlay กำลังพูดอยู่ไหม

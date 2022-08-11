@@ -60,24 +60,81 @@ export class BoxComponent implements OnInit {
 
 
 const sala:any = {
-  "ี":{//สระอี
-    maginTopFix:40,
-    maginlifeFix:50
+  "ะ":{//สระอะ
+    maginTopFix:-10,
+    maginlifeFix:0
+  },
+  "า":{//สระอา
+    maginTopFix:-10,
+    maginlifeFix:0
   },
   "ิ":{//สระอิ
     maginTopFix:40,
     maginlifeFix:55
   },
-  "ั":{//สระ  ั
-    maginTopFix:40,
-    maginlifeFix:30
-  },
-  "ื":{
+  "ี":{//สระอี
     maginTopFix:40,
     maginlifeFix:50
   },
-  "ำ":{
-    maginTopFix:0,
-    maginlifeFix:10
+  "ึ":{//สระอึ
+    maginTopFix:40,
+    maginlifeFix:55
+  },
+  "ื":{//สระอือ
+    maginTopFix:40,
+    maginlifeFix:50
+  },
+  "ุ":{//สระอุ
+    maginTopFix:-60,
+    maginlifeFix:25
+  },
+  "ู":{//สระอู
+    maginTopFix:-60,
+    maginlifeFix:45
+  },
+  "เ":{//สระเอ
+    maginTopFix:-10,
+    maginlifeFix:0
+  },
+  "แ":{//สระแอ
+    maginTopFix:-10,
+    maginlifeFix:0
+  },
+  "โ":{//สระโอ
+    maginTopFix:10,
+    maginlifeFix:0
+  },///////////////////////////////////
+  '่':{//ไม้เอก
+    maginTopFix:40,
+    maginlifeFix:30
+  },
+  '้':{//ไม้โท
+    maginTopFix:40,
+    maginlifeFix:30
+  },
+  '๊':{//ไม้ตรี
+    maginTopFix:40,
+    maginlifeFix:40
+  },
+  '์':{//ไม้จัตวา
+    maginTopFix:40,
+    maginlifeFix:30
+  },//////////////////////////////////
+  'ั':{//ไม้หัน
+    maginTopFix:40,
+    maginlifeFix:35
+  },
+  '็':{//ไม้ไต่คู้
+    maginTopFix:40,
+    maginlifeFix:45
+  },//////////////////////////////////
+  'ฐ':{//
+    maginTopFix:-20,
+    maginlifeFix:0
+  },
+  'ญ':{//
+    maginTopFix:-15,
+    maginlifeFix:-5
   },
 }
+
