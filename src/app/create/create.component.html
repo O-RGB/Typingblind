@@ -38,21 +38,80 @@
   ></button>
 </p-dialog>
 
-
+<p-dialog
+  header="URL"
+  [dismissableMask]="true"
+  [modal]="true"
+  [(visible)]="URLDisplay"
+>
+  <div style="width: 500px">
+    <h4>URL ทั้งหมด</h4>
+    <input
+      disabled
+      value="{{ 'https://typingblind.web.app/play/' + this.idURL }}"
+      type="text"
+      pInputText
+      placeholder="URL"
+      style="width: 100%"
+    />
+    <div style="height: 5px"></div>
+    <button
+      pButton
+      pRipple
+      type="button"
+      (click)="copy('https://typingblind.web.app/play/' + this.idURL)"
+      label="คัดลอก"
+      style="height: 30px; font-size: 12px"
+    ></button>
+    <h4>ID เกม</h4>
+    <input
+      disabled
+      value="{{ this.idURL }}"
+      type="text"
+      pInputText
+      placeholder="URL"
+      style="width: 100%"
+    />
+    <div style="height: 5px"></div>
+    <button
+      pButton
+      pRipple
+      type="button"
+      (click)="copy(this.idURL)"
+      label="คัดลอก"
+      style="height: 30px; font-size: 12px"
+    ></button>
+  </div>
+</p-dialog>
 
 <main-loading [hidden]="load" [text]="this.text"></main-loading>
 
 <html class="noselect">
   <body style="background-color: rgb(62, 66, 68); height: 100vh">
-    <button
-      pButton
-      pRipple
-      type="button"
-      label="ย้อนกลับ"
-      style="color: white"
-      class="p-button-secondary p-button-text"
-      (click)="gotoHome()"
-    ></button>
+    <div class="grid" style="margin: 0; padding: 0">
+      <div class="col-6" style="margin: 0; padding: 0">
+        <button
+          pButton
+          pRipple
+          type="button"
+          label="ย้อนกลับ"
+          style="color: white"
+          class="p-button-secondary p-button-text"
+          (click)="gotoHome()"
+        ></button>
+      </div>
+      <div class="col-6" style="margin: 0; padding: 0">
+        <button
+          pButton
+          pRipple
+          type="button"
+          label="สร้าง URL"
+          style="color: white; float: right"
+          class="p-button-secondary p-button-text"
+          (click)="URLDisplay = true"
+        ></button>
+      </div>
+    </div>
 
     <div class="grid" style="padding: 5px; margin: 5px; position: relative">
       <div class="col-fixed test tab-bar">
