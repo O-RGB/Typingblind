@@ -22,6 +22,7 @@ export class CreateComponent implements OnInit {
   data: game[] = []
   load: boolean = false
   text: string = 'กำลังโหลดข้อมูล Game'
+  URLDisplay:boolean = false
   // data: any = [{
   //   game: 0,
   //   type: ['ฟ', 'ก', 'ด', 'ย'],
@@ -155,6 +156,16 @@ export class CreateComponent implements OnInit {
 
   gotoHome() {
     this.router.navigate(['']);
+  }
+
+  
+  copy(text:string) {
+    var input = document.createElement('textarea');
+    input.innerHTML = text;
+    document.body.appendChild(input);
+    input.select();
+    var result = document.execCommand('copy');
+    document.body.removeChild(input);
   }
 
 
