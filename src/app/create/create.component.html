@@ -41,10 +41,12 @@
           Upload เสียง
           <br />
           <br />
+          <span id="duration"></span>
           <p-fileUpload
             #fubauto
+            accept="audio/mpeg"
             mode="basic"
-            (uploadHandler)="uploadSoundGoogleTTS($event)"
+            (uploadHandler)="uploadSoundGoogleTTS($event,fubauto)"
             [customUpload]="true"
             style="width: 30px"
             [auto]="true"

@@ -85,16 +85,16 @@ export class PlayComponent implements OnInit {
 
   soundEffectGoogleTTS(): Promise<boolean> {
     return new Promise((resolve) => {
-      if(this.data[this.gameRound].sound == ''){
+      if (this.data[this.gameRound].sound == '') {
         resolve(true)
-      }else{
+      } else {
         var audio = new Audio();
         audio.src = this.data[this.gameRound].sound
         audio.load();
         audio.play();
-        setTimeout(() => {
+        audio.onended = () => {
           resolve(true)
-        }, 5000);
+        }
       }
     })
   }
@@ -105,9 +105,9 @@ export class PlayComponent implements OnInit {
       audio.src = '../../assets/sound/start/start.mp3'
       audio.load();
       audio.play();
-      setTimeout(() => {
+      audio.onended = () => {
         resolve(true)
-      }, 2300);
+      }
     })
   }
 
@@ -178,7 +178,7 @@ export class PlayComponent implements OnInit {
               this.run(this.data[this.gameRound].type.length)
             })
           })
-          
+
         } else if (this.runTime == true) {//เฉลย
           this.key.speech(this.data[this.gameRound].type[this.keyPass])
         }

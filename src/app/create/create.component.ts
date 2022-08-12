@@ -8,6 +8,7 @@ interface game {
   back: string[],
   onChange: boolean,
   sound:string,
+  sec:number,
   end: boolean
 }
 
@@ -89,6 +90,7 @@ export class CreateComponent implements OnInit {
       back: [],
       onChange: true,
       sound:'',
+      sec:0,
       end: false
     })
     this.hoverButGame = this.data.length - 1
@@ -164,19 +166,25 @@ export class CreateComponent implements OnInit {
     window.open(url, "_blank","noreferrer noopener");
   }
 
-  uploadSoundGoogleTTS(file:any){
+
+  uploadSoundGoogleTTS(file:any,tag:any){
     this.load = false
     this.text = 'กำลังอัปโหลด'
-    console.log(file.files[0].name)
     this.GoogleUIFilename = file.files[0].name
+    console.log(file.files[0])
     this.GoogleUIUploadStatus = 'กำลังอัปโหลด'
     this.database.saveSoundByID(this.idURL,this.hoverButGame+'',file.files[0]).then(data => {
-      if(data){
+      if(data != ''){
         this.GoogleUIUploadStatus = 'สำเร็จ'
-        console.log(data)
         this.data[this.hoverButGame].sound = data
         this.save()
+      }else{
+        this.text = 'อัปโหลดล้มเหลว'
+        setTimeout(() => {
+          this.load = true
+        }, 2000);
       }
+      tag.clear()
     })
 
   }
