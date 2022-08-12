@@ -48,7 +48,7 @@ export class KeybayComponent implements OnInit {
   }
 
   public reset(){
-    this.left= []
+    this.left = []
     this.end = false
   }
 

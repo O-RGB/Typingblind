@@ -56,7 +56,7 @@ export class PlayComponent implements OnInit {
     this.pass = 0
     this.keyPass = 0
     this.KeyMistake = 0
-    this.Keybar.reset()
+    // this.Keybar.reset()
     this.startGame()
   }
 
@@ -76,12 +76,28 @@ export class PlayComponent implements OnInit {
     })
   }
 
-  
-//   ่  ้  ๊  ๋ 
-//   ั  
-//   ็   ์ 
-//  ๆ ฯ 
-//  ฦ ฤ
+
+  //   ่  ้  ๊  ๋ 
+  //   ั  
+  //   ็   ์ 
+  //  ๆ ฯ 
+  //  ฦ ฤ
+
+  soundEffectGoogleTTS(): Promise<boolean> {
+    return new Promise((resolve) => {
+      if(this.data[this.gameRound].sound == ''){
+        resolve(true)
+      }else{
+        var audio = new Audio();
+        audio.src = this.data[this.gameRound].sound
+        audio.load();
+        audio.play();
+        setTimeout(() => {
+          resolve(true)
+        }, 5000);
+      }
+    })
+  }
 
   soundEffect(): Promise<boolean> {
     return new Promise((resolve) => {
@@ -111,11 +127,12 @@ export class PlayComponent implements OnInit {
   startGame() {
     // this.loading.sound()
 
-
-    this.soundEffect().then(data => {
-      this.run(this.data[this.gameRound].type.length)
+    this.soundEffectGoogleTTS().then(data => {
+      this.soundEffect().then(data => {
+        this.run(this.data[this.gameRound].type.length)
+      })
+      this.copyArray()
     })
-    this.copyArray()
 
   }
 
@@ -155,9 +172,13 @@ export class PlayComponent implements OnInit {
         if (this.intoPopupPlay == false && this.displayInputPlay == true) {//replay intro
           //displayInputPlay กำลังโชว์ into อยู่ไหม == true
           //intoPopupPlay กำลังพูดอยู่ไหม
-          let i = this.data[this.gameRound].type.length
           this.intoPopupIndexPlay = -1
-          this.run(i)
+          this.soundEffectGoogleTTS().then(data => {
+            this.soundEffect().then(data => {
+              this.run(this.data[this.gameRound].type.length)
+            })
+          })
+          
         } else if (this.runTime == true) {//เฉลย
           this.key.speech(this.data[this.gameRound].type[this.keyPass])
         }

@@ -25,9 +25,11 @@ import { provideDatabase,getDatabase } from '@angular/fire/database';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { EndComponent } from './play/end/end.component';
 import { AngularFireModule} from '@angular/fire/compat';
-
+import { HttpClientModule } from '@angular/common/http';
 import { MainLoadingComponent } from './element/main-loading/main-loading.component';
 import { LoadingComponent } from './play/loading/loading.component';
+import {FileUploadModule} from 'primeng/fileupload';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 
 @NgModule({
   declarations: [
@@ -54,10 +56,13 @@ import { LoadingComponent } from './play/loading/loading.component';
     InputTextModule,
     DialogModule,
     BrowserAnimationsModule,
+    AngularFireStorageModule,
     AngularFireModule.initializeApp(environment.firebase),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideDatabase(() => getDatabase()),
     provideFirestore(() => getFirestore()),
+    HttpClientModule,
+    FileUploadModule
 
   ],
   providers: [],

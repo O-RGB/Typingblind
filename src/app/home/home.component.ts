@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { KeyService } from '../service/keybord/key.service';
 import { CreateService } from '../service/firebase/create.service';
-import tts from 'google-translate-tts';
+import * as googleTTS from 'google-tts-api';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { saveAs } from 'file-saver';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -10,54 +13,54 @@ import tts from 'google-translate-tts';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private router: Router,private key:KeyService,private create:CreateService) { }
+  constructor(private router: Router, private key: KeyService, private create: CreateService) { }
+
 
   ngOnInit(): void {
-
-
-
-    // lookup by name
-    let voice:any = tts.voices.findByName('English (United States)');
-    // an array of all voices
-    console.log(tts.voices);
+    const url = googleTTS.getAudioUrl('สวัสดีครับ ท่านสมาชิกชมรมคนชอบ', {
+      lang: 'th',
+      slow: false,
+      host: 'https://translate.google.com',
+    });
+    console.log(url);
   }
 
-  load:boolean = false
-  text:string = ''
+  load: boolean = false
+  text: string = ''
 
-  createMode:boolean = false
-  playMode:boolean = false
+  createMode: boolean = false
+  playMode: boolean = false
 
-  gotoCreate(){
+  gotoCreate() {
     this.load = true
     this.text = 'กำลังสร้าง URL'
     this.create.createURL().then(id => {
-      this.router.navigate(['create',id]);
+      this.router.navigate(['create', id]);
     })
   }
 
-  url:string = ''
-  urlPlay:string = ''
+  url: string = ''
+  urlPlay: string = ''
 
-  URLC(e:any){
+  URLC(e: any) {
     this.url = e.target.value
   }
 
-  URLP(e:any){
+  URLP(e: any) {
     this.urlPlay = e.target.value
   }
 
-  gotoURL(){
+  gotoURL() {
     this.load = true
     this.text = 'กำลังนำทาง'
     this.create.createURL().then(id => {
-      this.router.navigate(['create',this.url]);
+      this.router.navigate(['create', this.url]);
     })
   }
 
-  
 
-  gotoPlay(){
+
+  gotoPlay() {
     this.router.navigate(['play', this.urlPlay.trim()]);
   }
 

@@ -1,4 +1,64 @@
 <p-dialog
+  header="Google อ่านคำ"
+  [dismissableMask]="true"
+  [modal]="true"
+  [(visible)]="googleTTS"
+>
+  <div style="width: 500px; margin-top: -30px">
+    <h6>
+      *เนื่องจากปัญหาลิขสิทธ์ของ Google จึงไม่สามารถใช้ระบบพูดอัติโนมัติได้
+      ผู้ใช้ต้องกดโหลดเสียงและ Upload เอง
+    </h6>
+
+    <hr />
+
+    <div class="grid">
+      <div class="col-6">
+        <div style="text-align: center">
+          เสียงพูด: {{ " " + GoogleTTSText }}
+          <br />
+          <br />
+          <button
+            pButton 
+            (click)="goToLink(GoogleTTSURL)"
+            pRipple
+            type="button"
+            label="ดาวน์โหลดเสียง"
+            style="font-size: 15px"
+          ></button>
+        </div>
+      </div>
+      <div class="col-6">
+        <style>
+          :host ::ng-deep .p-button.p-fileupload-choose {
+            position: relative;
+            overflow: hidden;
+
+            font-size: 15px;
+          }
+        </style>
+        <div style="text-align: center">
+          Upload เสียง
+          <br />
+          <br />
+          <p-fileUpload
+            #fubauto
+            mode="basic"
+            (uploadHandler)="uploadSoundGoogleTTS($event)"
+            [customUpload]="true"
+            style="width: 30px"
+            [auto]="true"
+            chooseLabel="ไฟล์เสียง"
+          ></p-fileUpload>
+          <div style="font-size: 12px;">Filename: {{GoogleUIFilename}}</div>
+          <div style="font-size: 12px;">Upload: {{GoogleUIUploadStatus}} <b><span style="cursor: pointer;color: rgb(84, 146, 216);">ลบออก</span></b></div> 
+        </div>
+      </div>
+    </div>
+  </div>
+</p-dialog>
+
+<p-dialog
   header="ลบด่านนี้ทั้งหมด"
   [dismissableMask]="true"
   [modal]="true"
@@ -152,6 +212,20 @@
             style="color: rgb(57, 57, 57); height: 20px"
             class="p-button-secondary p-button-text"
             (click)="showDialogDeleteData()"
+          ></button>
+
+          <button
+            pButton
+            pRipple
+            [disabled]="
+              this.data[this.hoverButGame].type.length == 0 ||
+              this.data[this.hoverButGame].type[0].length == 0
+            "
+            type="button"
+            label="Google เสียงอ่านคำ"
+            style="color: rgb(57, 57, 57); height: 20px"
+            class="p-button-secondary p-button-text"
+            (click)="showDialogGoogleTTS()"
           ></button>
 
           <button
