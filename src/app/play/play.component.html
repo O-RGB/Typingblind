@@ -6,8 +6,8 @@
 >
   <br />
   <div class="grid">
-    <ng-container *ngFor="let i of data[this.gameRound].type; let index = index">
-      <div class="col-fixed" style="width: 130px">
+    <ng-container *ngIf="!loadData">
+      <div *ngFor="let i of data[this.gameRound].type; let index = index" class="col-fixed" style="width: 130px">
         <box
           [playIndex]="index"
           [playIndexSelectColor]="intoPopupIndexPlay"
@@ -46,9 +46,9 @@
   [pass]="keyPass"
 ></win>
 
-<html>
+<html >
   <body style="background-color: rgb(96, 96, 96); height: 100vh">
-    <div class="grid" style="padding: 10px">
+    <div *ngIf="!loadData" class="grid" style="padding: 10px">
       <div class="col-12" style="height: 70px">
         <button
           pButton
@@ -85,6 +85,7 @@
         style="height: 180px; background-color: rgb(129, 129, 129)"
       >
         <keybay
+        *ngIf="redeyGame"
           (mistake)="setMistake()"
           (endGame)="setEnd()"
           (pass)="setPass($event)"

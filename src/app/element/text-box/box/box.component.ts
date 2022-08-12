@@ -35,8 +35,6 @@ export class BoxComponent implements OnInit {
 
   
   constructor() {
-    console.log(this.playIndex)
-    console.log(this.playIndexSelectColor)
    }
 
   ngOnInit(): void {

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { KeyService } from '../service/keybord/key.service';
 import { CreateService } from '../service/firebase/create.service';
-
+import tts from 'google-translate-tts';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -13,6 +13,13 @@ export class HomeComponent implements OnInit {
   constructor(private router: Router,private key:KeyService,private create:CreateService) { }
 
   ngOnInit(): void {
+
+
+
+    // lookup by name
+    let voice:any = tts.voices.findByName('English (United States)');
+    // an array of all voices
+    console.log(tts.voices);
   }
 
   load:boolean = false

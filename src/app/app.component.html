@@ -1,1 +1,11 @@
-<router-outlet></router-outlet>
+
+
+<ng-container *ngIf="loadSound">
+    <router-outlet></router-outlet>
+</ng-container>
+<ng-container *ngIf="!loadSound">
+    <div style="background-color: rgb(96, 96, 96);margin: -8px;padding: -8px;overflow: hidden;width: 100%;height: 100vh;">
+        <main-loading  text="กำลังโหลดเสียง"></main-loading>
+    </div>
+</ng-container>
+
