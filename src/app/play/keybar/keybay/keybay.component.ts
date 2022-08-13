@@ -12,9 +12,8 @@ export class KeybayComponent implements OnInit {
   @Output() mistake = new EventEmitter<boolean>();
   @Output() endGame = new EventEmitter<boolean>();
   @Input() right:string[] = []
-  left:string[] = []
-
-  end:boolean = false
+  public left:string[] = []
+  public end:boolean = false
 
   soundEffect(pass:boolean){
     var audio = new Audio();
@@ -30,12 +29,14 @@ export class KeybayComponent implements OnInit {
   public typeText(text:string){
     if(this.right.length > 0){
       let check = this.right[0]
+      console.log(this.right)
       if(check == text){
         this.soundEffect(true)
         this.right.splice(0,1)
         this.pass.emit(this.left.length+1)
         this.left.push(text)
         this.left.reverse()
+
       }else{
         this.soundEffect(false)
         this.mistake.emit(true)
@@ -44,6 +45,8 @@ export class KeybayComponent implements OnInit {
         this.end = true
         this.endGame.emit(true)
       }
+    }else{
+      console.log('right error')
     }
   }
 

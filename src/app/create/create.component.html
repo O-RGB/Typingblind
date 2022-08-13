@@ -19,7 +19,7 @@
           <br />
           <br />
           <button
-            pButton 
+            pButton
             (click)="goToLink(GoogleTTSURL)"
             pRipple
             type="button"
@@ -46,14 +46,21 @@
             #fubauto
             accept="audio/mpeg"
             mode="basic"
-            (uploadHandler)="uploadSoundGoogleTTS($event,fubauto)"
+            (uploadHandler)="uploadSoundGoogleTTS($event, fubauto)"
             [customUpload]="true"
             style="width: 30px"
             [auto]="true"
             chooseLabel="ไฟล์เสียง"
           ></p-fileUpload>
-          <div style="font-size: 12px;">Filename: {{GoogleUIFilename}}</div>
-          <div style="font-size: 12px;">Upload: {{GoogleUIUploadStatus}} <b><span style="cursor: pointer;color: rgb(84, 146, 216);">ลบออก</span></b></div> 
+          <div style="font-size: 12px">Filename: {{ GoogleUIFilename }}</div>
+          <div style="font-size: 12px">
+            Upload: {{ GoogleUIUploadStatus }}
+            <b
+              ><span style="cursor: pointer; color: rgb(84, 146, 216)"
+                >ลบออก</span
+              ></b
+            >
+          </div>
         </div>
       </div>
     </div>
@@ -251,6 +258,34 @@
             <ng-container
               *ngIf="this.data.length > 0 && data[this.hoverButGame]"
             >
+              <div class="col-12">
+                ตัวอักษร:
+                <input
+                  type="text"
+                  (change)="createWordByInput($event)"
+                  value="{{data[this.hoverButGame].type.join('')}}"
+                  pInputText
+                  style="height: 20px; background-color: rgb(207, 207, 207)"
+                />
+                <br>
+                <ng-container >
+                  <label style="font-size: 12px">
+                    ถ้าอักษรมากกว่า 10 ตัวจะไม่สะกดคำให้
+                  </label>
+
+                  <div class="field-checkbox">
+                    <p-checkbox
+                    [(ngModel)]="this.data[this.hoverButGame].imread"
+                      (onChange)="imread($event)"
+                      [binary]="true"
+                      inputId="binary"
+                    ></p-checkbox>
+                    <label style="font-size: 15px" for="binary"
+                      >บังคับอ่าน</label
+                    >
+                  </div>
+                </ng-container>
+              </div>
               <div
                 *ngFor="let text of data[this.hoverButGame].type; let i = index"
                 class="col-fixed"

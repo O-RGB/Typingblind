@@ -30,7 +30,8 @@ import { MainLoadingComponent } from './element/main-loading/main-loading.compon
 import { LoadingComponent } from './play/loading/loading.component';
 import {FileUploadModule} from 'primeng/fileupload';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
-
+import {CheckboxModule} from 'primeng/checkbox';
+import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -62,7 +63,9 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
     provideDatabase(() => getDatabase()),
     provideFirestore(() => getFirestore()),
     HttpClientModule,
-    FileUploadModule
+    FileUploadModule,
+    CheckboxModule,
+    FormsModule
 
   ],
   providers: [],

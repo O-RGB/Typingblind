@@ -8,7 +8,7 @@ interface game {
   back: string[],
   onChange: boolean,
   sound:string,
-  sec:number,
+  imread:boolean,
   end: boolean
 }
 
@@ -90,7 +90,7 @@ export class CreateComponent implements OnInit {
       back: [],
       onChange: true,
       sound:'',
-      sec:0,
+      imread:false,
       end: false
     })
     this.hoverButGame = this.data.length - 1
@@ -116,8 +116,13 @@ export class CreateComponent implements OnInit {
     }
   }
 
-  addText() {
-    this.data[this.hoverButGame].type.push('')
+  addText(text:string = '') {
+    this.data[this.hoverButGame].type.push(text)
+    this.data[this.hoverButGame].onChange = true
+  }
+
+  imread(event:any){
+    this.data[this.hoverButGame].imread =  event.checked
     this.data[this.hoverButGame].onChange = true
   }
 
@@ -164,6 +169,19 @@ export class CreateComponent implements OnInit {
 
   goToLink(url: string){
     window.open(url, "_blank","noreferrer noopener");
+  }
+
+  createWordByInput(event:any){
+    let text  = event.target.value.trim()
+    if(text.length > 0){
+      this.data[this.hoverButGame].type = []
+      let sp:string[] = text.split("")
+      sp.forEach(element => {
+        this.addText(element)
+      });
+      this.data[this.hoverButGame].onChange = true
+
+    }
   }
 
 

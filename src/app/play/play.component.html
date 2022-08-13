@@ -17,8 +17,8 @@
     </ng-container>
   </div>
   <br />
-  กด enter เพื่อเริ่มเกม <br />
-  ฟังอีกครั้งกด specbar
+  กด Enter เพื่อเริ่มเกม <br />
+  ฟังอีกครั้งกด Spacebar
 </p-dialog>
 
 <loading [hidden]="!loadData" #loadingPopup></loading>
@@ -44,6 +44,7 @@
   [time]="this.sec"
   [miss]="KeyMistake"
   [pass]="keyPass"
+  [all]="this.data[this.gameRound].type.length"
 ></win>
 
 <html >
@@ -85,7 +86,8 @@
         style="height: 180px; background-color: rgb(129, 129, 129)"
       >
         <keybay
-        *ngIf="redeyGame"
+        [hidden]="!redeyGame"
+
           (mistake)="setMistake()"
           (endGame)="setEnd()"
           (pass)="setPass($event)"
@@ -99,7 +101,8 @@
         <div class="col-6">
           <span>เวลา 0{{ min }}:{{ sec }}</span> {{ " | " }}
           <span>ถูกต้อง {{ keyPass }}</span> {{ " | " }}
-          <span>ผิด {{ KeyMistake }}</span>
+          <span>ผิด {{ KeyMistake }}</span> {{ " | " }}
+          <span>ความเร็ว/วินาที {{ keydetectWPS }}</span>
         </div>
 
         <div class="col-6">

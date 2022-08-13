@@ -15,6 +15,12 @@ import { CreateService } from '../service/firebase/create.service';
 })
 export class PlayComponent implements OnInit {
 
+  @ViewChild('keybar')  Keybar!: KeybayComponent;
+  @ViewChild('countTime') countTime!: CountComponent;
+  @ViewChild('winPopup') winPopup!: WinComponent;
+  @ViewChild('losePopup') losePopup!: LoseComponent;
+  @ViewChild('loadingPopup') loadingPopup!: LoadingComponent;
+
   data: any
 
   english = /^[A-Za-z0-9]*$/;
@@ -33,6 +39,10 @@ export class PlayComponent implements OnInit {
   sec: string = '00'
   min: number = 0
 
+  keydetectWPS: number = 0
+  keydetectPass: number = 0
+  wpm: number = 0
+
   displayInputPlay = true
 
   keybarCopy: string[] = []
@@ -44,6 +54,9 @@ export class PlayComponent implements OnInit {
   idURL: any;
 
   resetState() {
+    // this.Keybar.left = []
+    // this.Keybar.end = false
+    this.copyArray()
     this.redeyGame = false
     this.endGame = false
     this.intoPopupIndexPlay = -1
@@ -56,7 +69,7 @@ export class PlayComponent implements OnInit {
     this.pass = 0
     this.keyPass = 0
     this.KeyMistake = 0
-    // this.Keybar.reset()
+    this.Keybar.reset()
     this.startGame()
   }
 
@@ -101,11 +114,16 @@ export class PlayComponent implements OnInit {
 
   soundEffect(): Promise<boolean> {
     return new Promise((resolve) => {
-      var audio = new Audio();
-      audio.src = '../../assets/sound/start/start.mp3'
-      audio.load();
-      audio.play();
-      audio.onended = () => {
+      if (this.data[this.gameRound].imread == true) {
+
+        var audio = new Audio();
+        audio.src = '../../assets/sound/start/start.mp3'
+        audio.load();
+        audio.play();
+        audio.onended = () => {
+          resolve(true)
+        }
+      } else {
         resolve(true)
       }
     })
@@ -126,23 +144,17 @@ export class PlayComponent implements OnInit {
 
   startGame() {
     // this.loading.sound()
-
+    this.copyArray()
     this.soundEffectGoogleTTS().then(data => {
       this.soundEffect().then(data => {
         this.run(this.data[this.gameRound].type.length)
       })
-      this.copyArray()
     })
 
   }
 
 
 
-  @ViewChild('keybar') Keybar!: KeybayComponent;
-  @ViewChild('countTime') countTime!: CountComponent;
-  @ViewChild('winPopup') winPopup!: WinComponent;
-  @ViewChild('losePopup') losePopup!: LoseComponent;
-  @ViewChild('loadingPopup') loadingPopup!: LoadingComponent;
 
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
@@ -199,17 +211,23 @@ export class PlayComponent implements OnInit {
     }
   }
 
+  setWPS() {
+    this.keydetectWPS = this.keydetectWPS / 0.1
+  }
+
 
 
   setPass(i: number) {
     this.pass = i
     this.keyPass++
+    this.keydetectWPS++
   }
   setMistake() {
     this.KeyMistake++
   }
 
   setEnd() {
+    this.winPopup.setPrecenPass()
     this.waitSpeech = true
     this.endGame = true
     this.redeyGame = false
@@ -228,18 +246,25 @@ export class PlayComponent implements OnInit {
   }
   run(length: number, time: number = 0, i: number = 0) {
     if (this.displayInputPlay) {
-      setTimeout(() => {
-        this.intoPopupPlay = true
-        this.key.speech(this.data[this.gameRound].type[i])
-        if (i < length) {
-          this.intoPopupIndexPlay = this.intoPopupIndexPlay + 1
-          this.run(length, 1000, i + 1)
-        } else {
-          this.intoPopupIndexPlay = this.intoPopupIndexPlay + 1
-          this.intoPopupPlay = false
-          this.soundEffectReplay()
-        }
-      }, time);
+      if (this.data[this.gameRound].imread == true) {
+        setTimeout(() => {
+          this.intoPopupPlay = true
+          this.key.speech(this.data[this.gameRound].type[i])
+          if (i < length) {
+            this.intoPopupIndexPlay = this.intoPopupIndexPlay + 1
+            this.run(length, 1000, i + 1)
+          } else {
+            this.intoPopupIndexPlay = this.intoPopupIndexPlay + 1
+            this.intoPopupPlay = false
+            this.soundEffectReplay()
+          }
+        }, time);
+      } else {
+        this.soundEffectReplay()
+        this.intoPopupPlay = false
+        this.waitSpeech = false
+      }
+
     } else {
       this.intoPopupPlay = false
     }
@@ -248,6 +273,7 @@ export class PlayComponent implements OnInit {
   time() {
     this.runTime = true
     setTimeout(() => {
+      this.setWPS()
       let sec = Number(this.sec)
       sec = sec + 1
 
@@ -262,7 +288,10 @@ export class PlayComponent implements OnInit {
         this.sec = '00'
       }
 
-      if (!this.endGame && this.min != 1) { this.time() }
+      if (!this.endGame && this.min != 1) {
+        this.keydetectWPS = 0;
+        this.time()
+      }
       else if (this.min == 1) {
         // this.losePopup.sound()
         this.setEnd()
