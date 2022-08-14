@@ -33,7 +33,11 @@ export class WinComponent implements OnInit {
   test: boolean = true
 
   public setPrecenPass(){
-    this.keydetectPass = ((Math.abs(this.pass-this.miss))/this.all)*100
+    if((this.pass+1)-this.miss < 0){
+      this.keydetectPass = 0
+    }else{
+      this.keydetectPass = ((Math.abs((this.pass+1)-this.miss))/this.all)*100
+    }
   }
 
   ngOnInit(): void {

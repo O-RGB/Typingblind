@@ -5,8 +5,15 @@ import { KeybayComponent } from './keybar/keybay/keybay.component';
 import { WinComponent } from './win/win.component';
 import { LoseComponent } from './lose/lose.component';
 import { LoadingComponent } from './loading/loading.component';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CreateService } from '../service/firebase/create.service';
+import { EndComponent } from './end/end.component';
+
+interface stat{
+  game:number
+  time:number
+  acc:number
+}
 
 @Component({
   selector: 'app-play',
@@ -19,11 +26,13 @@ export class PlayComponent implements OnInit {
   @ViewChild('countTime') countTime!: CountComponent;
   @ViewChild('winPopup') winPopup!: WinComponent;
   @ViewChild('losePopup') losePopup!: LoseComponent;
+  @ViewChild('endPopup') endPopup!: EndComponent;
   @ViewChild('loadingPopup') loadingPopup!: LoadingComponent;
 
   data: any
 
   english = /^[A-Za-z0-9]*$/;
+
 
   endGame: boolean = false
   redeyGame: boolean = false
@@ -52,6 +61,9 @@ export class PlayComponent implements OnInit {
 
   loadData: boolean = false
   idURL: any;
+
+  stat: stat[] = []
+  endPopupDisplay: boolean = false;
 
   resetState() {
     // this.Keybar.left = []
@@ -153,7 +165,9 @@ export class PlayComponent implements OnInit {
 
   }
 
-
+  gotoHome(){
+    window.open("https://typingblind.web.app/",'_self');
+  }
 
 
   @HostListener('document:keydown', ['$event'])
@@ -171,9 +185,15 @@ export class PlayComponent implements OnInit {
         }
         else if (this.endGame == true && this.min != 1) {
           if (this.data.length > 0) {
-            if (this.gameRound + 1 <= this.data.length)
+            if (this.gameRound + 1 < this.data.length){
               this.gameRound = this.gameRound + 1
-            this.resetState()
+              this.resetState()
+            }else{
+              if(this.endPopupDisplay){
+                this.gotoHome()
+              }
+              this.endPopupDisplay = true
+            }
           }
 
         } else if (this.min == 1) {
@@ -219,21 +239,37 @@ export class PlayComponent implements OnInit {
 
   setPass(i: number) {
     this.pass = i
-    this.keyPass++
+    this.keyPass = this.keyPass + 1
     this.keydetectWPS++
   }
   setMistake() {
     this.KeyMistake++
   }
 
+  setStat(){
+    if(this.min != 1){
+      let acc = 0
+      if((this.pass+1)-this.KeyMistake < 0){
+        acc = 0
+      }else{
+        acc = ((Math.abs((this.pass)-this.KeyMistake))/this.data[this.gameRound].type.length)*100
+      }
+      
+      this.stat.push({game:this.gameRound,time:Number(this.sec),acc:acc})
+    }
+  }
+
   setEnd() {
     this.winPopup.setPrecenPass()
+    this.setStat()
     this.waitSpeech = true
     this.endGame = true
     this.redeyGame = false
     if (this.min != 1) {
       if (this.data[this.gameRound].end == false) {//เช็คว่าเป็นเกมสุดท้านแล้วรึยัง
         this.winPopup.sound()
+      }else{
+        this.endPopup.calStat()
       }
     } else {
       this.losePopup.sound()
@@ -309,7 +345,7 @@ export class PlayComponent implements OnInit {
     this.keybarCopy = data
   }
 
-  constructor(private key: KeyService, private activatedRoute: ActivatedRoute, private database: CreateService) {
+  constructor(private key: KeyService, private activatedRoute: ActivatedRoute, private database: CreateService,private router: Router) {
     this.waitSpeech = true
   }
 

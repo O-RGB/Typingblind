@@ -7,7 +7,11 @@
   <br />
   <div class="grid">
     <ng-container *ngIf="!loadData">
-      <div *ngFor="let i of data[this.gameRound].type; let index = index" class="col-fixed" style="width: 130px">
+      <div
+        *ngFor="let i of data[this.gameRound].type; let index = index"
+        class="col-fixed"
+        style="width: 130px"
+      >
         <box
           [playIndex]="index"
           [playIndexSelectColor]="intoPopupIndexPlay"
@@ -24,22 +28,13 @@
 <loading [hidden]="!loadData" #loadingPopup></loading>
 <count [hidden]="runTime" #countTime></count>
 <lose [open]="min == 1" #losePopup></lose>
-<end
-  [open]="
-    endGame == true 
-    && runTime == false 
-    && min == 0 
-    && this.data[this.gameRound].end == true
-  "
-  #endPopup
-></end>
+<end [open]="endPopupDisplay" [stat]="stat" #endPopup></end>
 <win
   #winPopup
   [open]="
-    endGame == true 
-    && runTime == false 
-    && min == 0 
-    && this.data[this.gameRound].end == false
+    endGame == true &&
+    runTime == false &&
+    min == 0 && endPopupDisplay == false
   "
   [time]="this.sec"
   [miss]="KeyMistake"
@@ -47,7 +42,7 @@
   [all]="this.data[this.gameRound].type.length"
 ></win>
 
-<html >
+<html>
   <body style="background-color: rgb(96, 96, 96); height: 100vh">
     <div *ngIf="!loadData" class="grid" style="padding: 10px">
       <div class="col-12" style="height: 70px">
@@ -66,11 +61,14 @@
           style="color: white; float: right"
           label="ออกจากเกม"
           class="p-button-text"
+          (click)="  this.gotoHome()"
         ></button>
       </div>
       <div class="col-12" style="width: 100%; height: 320px">
         <div class="grid outer" style="margin: auto">
-          <ng-container *ngFor="let i of data[this.gameRound].type; let index = index">
+          <ng-container
+            *ngFor="let i of data[this.gameRound].type; let index = index"
+          >
             <div class="col-fixed" style="width: 130px">
               <box
                 [playIndex]="index"
@@ -86,8 +84,7 @@
         style="height: 180px; background-color: rgb(129, 129, 129)"
       >
         <keybay
-        [hidden]="!redeyGame"
-
+          [hidden]="!redeyGame"
           (mistake)="setMistake()"
           (endGame)="setEnd()"
           (pass)="setPass($event)"

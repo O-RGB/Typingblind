@@ -134,5 +134,13 @@ const sala:any = {
     maginTopFix:-15,
     maginlifeFix:-11
   },
+  'ไ':{//
+    maginTopFix:8,
+    maginlifeFix:0
+  },
+  'ใ':{//
+    maginTopFix:8,
+    maginlifeFix:0
+  },
 }
 
